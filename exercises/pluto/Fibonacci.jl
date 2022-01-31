@@ -4,184 +4,127 @@
 using Markdown
 using InteractiveUtils
 
-# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
-macro bind(def, element)
-    quote
-        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
-        local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
-        el
-    end
-end
+# ╔═╡ 1704925c-9d29-4b52-9e42-8ba60bec1901
+using PlutoUI
 
-# ╔═╡ d2e14b19-98d7-4fba-8bd9-bbbb47e002f6
-begin
-	bigbreak = HTML("<br>"^4);
-	using PlutoUI
-	using Test
-end
+# ╔═╡ cf7a9ec8-2077-41ad-a5ee-e6131a3bc0d5
+using Test
 
-# ╔═╡ ce3c8fde-802a-11ec-1b1a-31be58ae3474
-md"""
-# Conditionals
-with the if keyword
-In Julia, the syntax
+# ╔═╡ b8ad4763-2d32-4ea7-9bd1-c059abc3ef02
+md"""## Computing the Fibonacci sequence
 
-```julia
-if *condition 1*
-    *option 1*
-elseif *condition 2*
-    *option 2*
-else
-    *option 3*
-end
-```
-allows us to conditionally evaluate one of our options.
+Below, you will find a function `fib` which computes the first `N` (default: 100.000) numbers of the Fibonacci sequence
 
-For example, we might want to implement the FizzBuzz test: 
-given a number, N, print
--  "Fizz" if N is divisible by 3,
--  "Buzz" if N is divisible by 5, and
--  "FizzBuzz" if N is divisible by 3 and 5.
+$x_0 = 1, \quad x_1 = 1,$
 
-Otherwise just print the number itself! Enter your choice for N here:
+$x_n = x_{n-2} + x_{n-1} \quad \text{for } n = 2, 3, \dots$
 """
 
-# ╔═╡ fd2ee11d-1734-457b-b587-4128b474b772
-@bind N PlutoUI.Slider(1:20, show_value = true)
+# ╔═╡ a231d855-94c7-4f80-88ab-09771ead491a
+md"""
+#### Your mission, should you decide to accept it, is to make `fib` (roughly) 10× faster.  
 
-# ╔═╡ da9796ce-4572-4d2d-bb96-5949f52d46d0
-with_terminal() do 
-	if (N % 3 == 0) && (N % 5 == 0) 
-		# `&&` means "AND"; % computes the remainder after division
-	    println("FizzBuzz")
-	elseif N % 3 == 0
-	    println("Fizz")
-	elseif N % 5 == 0
-	    println("Buzz")
-	else
-	    println(N)
+## 🚀
+
+There are at least two mistakes in the given code. (One much more relevant than the other). 
+If you want, you can find some tips in the hint boxes below.
+
+Useful functions for `Vector`s might be:
+- `sizehint!()` gives Julia the hint how large the vector might become
+- `zeros(Int64, N)`  creates a vector of zeros with element type `Int64`
+- `Vector{Int64}(undef, N)` creates an uninitialized vector with element type `Int64`
+
+Check the documentation (e.g. `?sizehint!`) for their function.
+"""
+
+# ╔═╡ 458fe3b8-ae71-4f5e-ac71-e87aebf49d26
+md"---"
+
+# ╔═╡ 8eb5164a-e6ac-4294-951c-d466d1545056
+HTML("<br>"^4)
+
+# ╔═╡ a95a799f-0b24-43a1-a3d5-a307dc66c871
+md"Good luck!"
+
+# ╔═╡ 4300ee90-8164-11ec-27f6-d1e8d92def77
+function fib(N = 100_000; x₀ = 1, x₁ = 1)
+	# modify this code to improve the performance
+	
+	x = []
+	append!(x, (x₀, x₁))
+	for i in 3:N
+		push!(x, x[i-1] + x[i-2])
 	end
+	return x
 end
 
-# ╔═╡ aca5d158-2902-4b7a-bf50-6f7a722f5ea7
-md"""
-with ternary operators
-For this last block, we could instead use the ternary operator with the syntax
-```julia
-a ? b : c
-```
-which equates to
-```julia
-if a
-    b
-else
-    c
-end
-```
-"""
+# ╔═╡ d533c36f-57db-4a99-ab63-9b6d0819c40e
+@test fib()[end] == 2754320626097736315  # this line tests if `fib` works correctly
 
-# ╔═╡ 8a3c8101-0c2a-438f-ba58-b80e9b14bc10
-md"
-Now let's say we want to return the larger of two numbers. Give x and y values here: "
+# ╔═╡ bf1fcc4a-d8de-4299-b7f8-4cd2616247eb
+x = fib()
 
-# ╔═╡ 5732d2dc-c411-4c56-9720-ce6d979fc60f
-x = 10
+# ╔═╡ 7d806a4b-3975-483b-a8bb-8287aa808153
 
-# ╔═╡ d993ffa0-c613-4b4b-baeb-a223ce408217
-y = 30
 
-# ╔═╡ 782a5034-9184-4a55-b877-bd0bb4e4aebb
-md"Using the if and else keywords, we might write:
-"
+# ╔═╡ 574d2013-adf0-4598-99c9-23978777c350
+md"If you change the function and press `Shift+Enter` (to run the cell), then the timings get updated."
 
-# ╔═╡ 14d69119-9a68-428b-a857-56298b42aee5
-if x > y
-    x
-else
-    y
-end
+# ╔═╡ fadc6a39-2d55-4930-995f-1c2b179de623
+md"*Note: Run the cell below to reset all timings:*"
 
-# ╔═╡ 46533172-0fe1-406b-a52d-23305282d43b
-md"and as a ternary operator, the conditional looks like this:"
+# ╔═╡ 150c4d64-6c6c-479f-a6e9-414807c12b3e
+timings = Float64[]  # initialises/resets the vector with previous timings 
 
-# ╔═╡ b13c9cc4-3c4e-4416-896f-d5cbdc2d51c0
-(x > y) ? x : y
-
-# ╔═╡ 4e584065-0243-4e77-aee1-a7faecba7a1b
-bigbreak
-
-# ╔═╡ 614502ee-bafe-461c-8058-1340294317d6
-md"""
-### with short-circuit evaluation
-We've already seen expressions with the syntax
-
-```
-a && b
-```
-to return true if both a and b are true. Of course, if a is false, Julia doesn't even need to know the value of b in order to determine that the overall result will be false. So Julia doesn't even need to check what b is; it can just "short-circuit" and immediately return false. The second argument b might be a more complicated expression like a function call with a side-effect, in which case it won't even be called:
-
-"""
-
-# ╔═╡ 6f14e3b2-7110-41e3-a4a1-eeda201f4301
-with_terminal() do 
-	false && (println("hi"); true)
-end
-
-# ╔═╡ ca1f4737-860f-4d8c-9e1e-0884ee5ef337
-with_terminal() do 
-	true && (println("hi"); true)
-end
-
-# ╔═╡ f899ee97-a939-418d-9438-7a43eac37022
-md"""
-On the other hand, if a is true, Julia knows it can just return the value of `b` as the overall expression. This means that `b` doesn't necessarily need evaluate to true or false! `b` could even be an error:
-"""
-
-# ╔═╡ 9a803f0f-6206-4ab5-863e-d53745d4e6a6
-(x > 0) && error("x cannot be greater than 0")
-
-# ╔═╡ e225f157-d743-4e69-b9e6-e659f0c7a05a
-md"""Similarly, check out the || operator, which also uses short-circuit evaluation to perform the "or" operation."""
-
-# ╔═╡ 7a5b0ae0-3e5a-4619-b280-8171eabae19c
-with_terminal() do 
-	true || println("hi")
-	false || println("bye")
-end
-
-# ╔═╡ fdfb1f2e-6105-43dd-92cf-4b78e1db8e73
-bigbreak
-
-# ╔═╡ 61aa9056-ebfe-4c06-a752-d081ece68167
-md"""
-## Exercises
-
-5.1
-
-Write a conditional statement that prints a number if the number is even and the string "odd" if the number is odd.
-
-"""
-
-# ╔═╡ 8f1298ab-309f-4d4d-8165-4ee522f3b1c8
+# ╔═╡ 086109b0-8c06-414e-addc-62d23eac2a6e
 with_terminal() do
+	fib() # the first computation is always a bit slower, so we skip that
 	
+	println("Last run:")
+	@time fib()
+	
+	printstyled("History:\n", color = :light_green)
+	for t in reverse(timings)
+		printstyled( round(t, digits=3), " ms\n", color = :green )
+	end
+
+	push!(timings, 1000 * @elapsed(fib()))
+
+	nothing  # we don't want to display anything. Hence, we return nothing
 end
 
-# ╔═╡ 602b3c77-e46e-4592-a787-4aeed77eb059
-bigbreak
+# ╔═╡ 249b210f-2b48-485b-b3e3-68cb15420935
+md"*Optional: If you want to do the performance timing yourself, you could either use the `@time fib()` command, or, even better, the `@benchmark fib()` command from the package `BenchmarkTools.jl`. (Hence, you need to run `using BenchmarkTools` to include it.)*"
 
-# ╔═╡ c7c1ec65-49ed-4ae9-b9a9-0d82a346af81
+# ╔═╡ ee060fd9-e843-4646-965a-301f419ef647
+HTML("<br>"^4)
+
+# ╔═╡ 9631ba25-0d87-4622-a176-1bb460355a46
 md"""
-5.2 
+!!! hint "Hint #1"
+    Adding new element to an existing `Vector` can take up much time. 
+	It is better to allocate enough memory beforehand.
+	
+    You could use `sizehint!(x, N)`, which tells the program which size to allocate for that array.
 
-Rewrite the code from 5.1 using a ternary operator.
+	Or you could allocate directly a vector of size `N`, but then you need to modify the for loop accordingly, since we then don't have to `push!` element into the vector, but just to access the `i`th position.
 """
 
-# ╔═╡ e95392a4-a8b0-4db3-bdcc-5149ee1804db
-with_terminal() do
-	
-end
+# ╔═╡ 6fe358c6-96c2-4116-aa44-d9ed8bd7144a
+HTML("<br>"^4)
+
+# ╔═╡ 510641a3-f73e-4f07-abd9-ae865fe5e6b1
+md"""
+!!! hint "Hint #2"
+	The main problem is this: The vector `x` has type `typeof(x) == Vector{Any}`!
+    This wastes a lot of resources. 
+
+    To avoid this, you could at least create it as 
+	`x = Int64[]`.
+
+    Or in combination with Hint #1, you could use
+	`x = zeros(Int64, N)` and change the `for` loop accordingly.
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -400,31 +343,25 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 """
 
 # ╔═╡ Cell order:
-# ╟─d2e14b19-98d7-4fba-8bd9-bbbb47e002f6
-# ╟─ce3c8fde-802a-11ec-1b1a-31be58ae3474
-# ╟─fd2ee11d-1734-457b-b587-4128b474b772
-# ╠═da9796ce-4572-4d2d-bb96-5949f52d46d0
-# ╟─aca5d158-2902-4b7a-bf50-6f7a722f5ea7
-# ╟─8a3c8101-0c2a-438f-ba58-b80e9b14bc10
-# ╠═5732d2dc-c411-4c56-9720-ce6d979fc60f
-# ╠═d993ffa0-c613-4b4b-baeb-a223ce408217
-# ╟─782a5034-9184-4a55-b877-bd0bb4e4aebb
-# ╠═14d69119-9a68-428b-a857-56298b42aee5
-# ╟─46533172-0fe1-406b-a52d-23305282d43b
-# ╠═b13c9cc4-3c4e-4416-896f-d5cbdc2d51c0
-# ╟─4e584065-0243-4e77-aee1-a7faecba7a1b
-# ╟─614502ee-bafe-461c-8058-1340294317d6
-# ╠═6f14e3b2-7110-41e3-a4a1-eeda201f4301
-# ╠═ca1f4737-860f-4d8c-9e1e-0884ee5ef337
-# ╟─f899ee97-a939-418d-9438-7a43eac37022
-# ╠═9a803f0f-6206-4ab5-863e-d53745d4e6a6
-# ╟─e225f157-d743-4e69-b9e6-e659f0c7a05a
-# ╟─7a5b0ae0-3e5a-4619-b280-8171eabae19c
-# ╟─fdfb1f2e-6105-43dd-92cf-4b78e1db8e73
-# ╠═61aa9056-ebfe-4c06-a752-d081ece68167
-# ╠═8f1298ab-309f-4d4d-8165-4ee522f3b1c8
-# ╟─602b3c77-e46e-4592-a787-4aeed77eb059
-# ╟─c7c1ec65-49ed-4ae9-b9a9-0d82a346af81
-# ╠═e95392a4-a8b0-4db3-bdcc-5149ee1804db
+# ╠═1704925c-9d29-4b52-9e42-8ba60bec1901
+# ╠═cf7a9ec8-2077-41ad-a5ee-e6131a3bc0d5
+# ╟─b8ad4763-2d32-4ea7-9bd1-c059abc3ef02
+# ╟─a231d855-94c7-4f80-88ab-09771ead491a
+# ╟─458fe3b8-ae71-4f5e-ac71-e87aebf49d26
+# ╟─8eb5164a-e6ac-4294-951c-d466d1545056
+# ╟─a95a799f-0b24-43a1-a3d5-a307dc66c871
+# ╠═4300ee90-8164-11ec-27f6-d1e8d92def77
+# ╠═d533c36f-57db-4a99-ab63-9b6d0819c40e
+# ╠═bf1fcc4a-d8de-4299-b7f8-4cd2616247eb
+# ╟─7d806a4b-3975-483b-a8bb-8287aa808153
+# ╟─574d2013-adf0-4598-99c9-23978777c350
+# ╟─086109b0-8c06-414e-addc-62d23eac2a6e
+# ╟─fadc6a39-2d55-4930-995f-1c2b179de623
+# ╠═150c4d64-6c6c-479f-a6e9-414807c12b3e
+# ╟─249b210f-2b48-485b-b3e3-68cb15420935
+# ╟─ee060fd9-e843-4646-965a-301f419ef647
+# ╟─9631ba25-0d87-4622-a176-1bb460355a46
+# ╟─6fe358c6-96c2-4116-aa44-d9ed8bd7144a
+# ╟─510641a3-f73e-4f07-abd9-ae865fe5e6b1
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

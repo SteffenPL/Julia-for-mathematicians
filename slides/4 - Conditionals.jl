@@ -4,134 +4,160 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 6a8d2112-7c4e-11ec-3637-71423891e51d
-begin
-	using PlutoUI
-	
-	html"""<style>
-	main {
-	    max-width: 1000px;
-	}</style>"""
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
 end
 
-# ╔═╡ 6a8d2112-7c4e-11ec-0403-a1c2190ebfc2
-md"# Variables
-*This notebook is based on [docs.julialang.org/en/v1/manual/variables/](https://docs.julialang.org/en/v1/manual/variables/).*
-"
+# ╔═╡ d2e14b19-98d7-4fba-8bd9-bbbb47e002f6
+begin
+	bigbreak = HTML("<br>"^4);
+	using PlutoUI
+	using Test
+end
 
-# ╔═╡ 04cceefb-e180-4146-b68e-0da6d40cd582
-md" > A variable, in Julia, is a name associated (or bound) to a value. 
+# ╔═╡ ce3c8fde-802a-11ec-1b1a-31be58ae3474
+md"""
+# Conditionals
+with the if keyword
+In Julia, the syntax
 
-It's easy:
-"
+```julia
+if *condition 1*
+    *option 1*
+elseif *condition 2*
+    *option 2*
+else
+    *option 3*
+end
+```
+allows us to conditionally evaluate one of our options.
 
-# ╔═╡ f5a7c717-d429-4db8-bef2-0c40e6f05e39
+For example, we might want to implement the FizzBuzz test: 
+given a number, N, print
+-  "Fizz" if N is divisible by 3,
+-  "Buzz" if N is divisible by 5, and
+-  "FizzBuzz" if N is divisible by 3 and 5.
+
+Otherwise just print the number itself! Enter your choice for N here:
+"""
+
+# ╔═╡ fd2ee11d-1734-457b-b587-4128b474b772
+@bind N PlutoUI.Slider(1:20, show_value = true)
+
+# ╔═╡ 7b619e85-abb8-4115-a9df-b5fedd04a8e4
+md"N = $N"
+
+# ╔═╡ da9796ce-4572-4d2d-bb96-5949f52d46d0
+with_terminal() do 
+	if (N % 3 == 0) && (N % 5 == 0) 
+		# `&&` means "AND"; % computes the remainder after division
+	    println("FizzBuzz")
+	elseif N % 3 == 0
+	    println("Fizz")
+	elseif N % 5 == 0
+	    println("Buzz")
+	else
+	    println(N)
+	end
+end
+
+# ╔═╡ aca5d158-2902-4b7a-bf50-6f7a722f5ea7
+md"""
+with ternary operators
+For this last block, we could instead use the ternary operator with the syntax
+```julia
+a ? b : c
+```
+which equates to
+```julia
+if a
+    b
+else
+    c
+end
+```
+"""
+
+# ╔═╡ 8a3c8101-0c2a-438f-ba58-b80e9b14bc10
+md"
+Now let's say we want to return the larger of two numbers. Give x and y values here: "
+
+# ╔═╡ 5732d2dc-c411-4c56-9720-ce6d979fc60f
 x = 10
 
-# ╔═╡ c6c3f39a-501d-4ec0-86b1-ad44da491da4
-y = sqrt(x)
+# ╔═╡ d993ffa0-c613-4b4b-baeb-a223ce408217
+y = 30
 
-# ╔═╡ c4425c71-0972-4b60-b967-d338c4f0b1cb
-md"*(Note: In Pluto, the results are shown above the cells. Don't worry, one gets used to it.)*"
+# ╔═╡ 782a5034-9184-4a55-b877-bd0bb4e4aebb
+md"Using the if and else keywords, we might write:
+"
 
-# ╔═╡ 7fc2e155-01dd-40d5-92eb-ab86bef0ecb3
-md""" ## Cool (aka unicode) variables names 🚀
-You can use `\` + 'symbol name' + `Tab` to enter unicode characters.
+# ╔═╡ 14d69119-9a68-428b-a857-56298b42aee5
+if x > y
+    x
+else
+    y
+end
 
-For example `\Omega <Tab> = Ω` or `\:cat: <Tab> = 🐱`.
-"""
+# ╔═╡ 46533172-0fe1-406b-a52d-23305282d43b
+md"and as a ternary operator, the conditional looks like this:"
 
-# ╔═╡ 780d0dfd-0c0e-4ee0-8d00-26077544b47f
-Ω = (-10, 10) 
+# ╔═╡ b13c9cc4-3c4e-4416-896f-d5cbdc2d51c0
+(x > y) ? x : y
 
-# ╔═╡ 05090f45-f5e3-4883-96cb-889458430a5f
-🐱 = "cute "
+# ╔═╡ fdfb1f2e-6105-43dd-92cf-4b78e1db8e73
+bigbreak
 
-# ╔═╡ 67f7d99a-8626-425d-8db7-7c18762572d0
-🐱 * 🐱
-
-# ╔═╡ 2bea8d97-4df8-4794-bdcf-5cd8bfcd1bf0
+# ╔═╡ 61aa9056-ebfe-4c06-a752-d081ece68167
 md"""
-## Variables ≠ Values
+## Exercises
 
-An expression like
-```julia
-A = [1, 2, 3]
-A = [3, 4, 5]
-```
-does not imply that the array `[1,2,3]` is overwritten by `[3,4,5]`!
+5.1
 
-Example:
-"""
-
-# ╔═╡ 87ef8c7c-aef9-4b05-b106-c538749c53ec
-begin 
-	A = [1, 2, 3]            
-	A_ref = Ref(A)		# keep a reference pointing onto the value bound by `A`
-
-	A = 2*A 				# bind a new value to the variable `A`
-	A
-end
-
-# ╔═╡ 2413fee7-c2b6-49d5-9a28-89cd0e8b38a5
-A_ref[]
-
-# ╔═╡ 6de85cfa-94f5-4e56-9b79-b87e29ec0df7
-md""" 
-#### Why did we not overwrite the original array?
-In the first step we did
-```julia
-A = [1, 2, 3] 
-```
-
-$(LocalResource("images/var_1.svg", :width => 800))
-After the command 
-```julia 
-A = 2*A
-```
-the variable is bound to a new value. **The old value remains unchanged!**
-
-$(LocalResource("images/var_2.svg", :width => 800))
+Write a conditional statement that prints "negative", "zero" or "odd" according to the input number `N`.
 
 """
 
-# ╔═╡ 809c8465-7afd-4875-9f92-f0488177e465
-md"""  ## Naming conventions
-These conventions are no strict rules, but widely accepted conventions.
+# ╔═╡ 75efd803-be55-4d0f-b8c8-6b63dd90d68c
+md"""M = $(@bind M PlutoUI.Slider(-100:100, show_value = true)) """
 
-- Variables are in lower case. If really needed, use underscores ('_') to separete words.  
-- Capitalize Types and Modules and use upper camel case instead of underscores.
-- Names of functions and macros are in lower case, without underscores.
-*(to be continued* 😜*)*
+# ╔═╡ 8f1298ab-309f-4d4d-8165-4ee522f3b1c8
+with_terminal() do 
+	# modify this cell to return "negative", "zero" and "positive".
+	println(M)
+end
+
+# ╔═╡ 602b3c77-e46e-4592-a787-4aeed77eb059
+bigbreak
+
+# ╔═╡ c7c1ec65-49ed-4ae9-b9a9-0d82a346af81
+md"""
+5.2 
+
+Use the ternary operator to construct a reasonable answer from Bob in the dialog below.
 """
 
-# ╔═╡ fe829849-27ca-46bb-8453-a7e065fd5c2f
-md"For example:"
-
-# ╔═╡ 44d48710-21ac-42c8-ac83-9aed9367558b
-struct JuliaProgrammer       		# this is a 'Type' --> capitalize + CamelCase
-	name::String                    # variable         --> lower case  
-	likes_vienna::Bool        		#                  --> optional: underscore separation
+# ╔═╡ 283c45af-47a3-4446-b873-205d8aa568e7
+with_terminal() do 
+	println("""
+	Alice: Is the number $M even? 
+	Bob:   I don't know.""")
 end
-
-# ╔═╡ 8a627e1c-9493-4440-84f5-8f981dbbb79d
-function sayhelloworld(x::JuliaProgrammer)			# function name --> lowercase only
-	return x.name * " says: 'Hello world!' "
-end
-
-# ╔═╡ da3547bd-5b78-44bb-a4ef-5b7c87d03fc2
-begin 
-	me = JuliaProgrammer("Steffen", true)
-	sayhelloworld(me)
-end	
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-PlutoUI = "~0.7.30"
+PlutoUI = "~0.7.32"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -256,9 +282,9 @@ uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
 
 [[deps.Parsers]]
 deps = ["Dates"]
-git-tree-sha1 = "92f91ba9e5941fc781fecf5494ac1da87bdac775"
+git-tree-sha1 = "0b5cfbb704034b5b4c1869e36634438a047df065"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.2.0"
+version = "2.2.1"
 
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
@@ -266,9 +292,9 @@ uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "UUIDs"]
-git-tree-sha1 = "5c0eb9099596090bb3215260ceca687b888a1575"
+git-tree-sha1 = "ae6145ca68947569058866e443df69587acc1806"
 uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.30"
+version = "0.7.32"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -341,24 +367,25 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 """
 
 # ╔═╡ Cell order:
-# ╟─6a8d2112-7c4e-11ec-3637-71423891e51d
-# ╟─6a8d2112-7c4e-11ec-0403-a1c2190ebfc2
-# ╟─04cceefb-e180-4146-b68e-0da6d40cd582
-# ╠═f5a7c717-d429-4db8-bef2-0c40e6f05e39
-# ╠═c6c3f39a-501d-4ec0-86b1-ad44da491da4
-# ╟─c4425c71-0972-4b60-b967-d338c4f0b1cb
-# ╟─7fc2e155-01dd-40d5-92eb-ab86bef0ecb3
-# ╠═780d0dfd-0c0e-4ee0-8d00-26077544b47f
-# ╠═05090f45-f5e3-4883-96cb-889458430a5f
-# ╠═67f7d99a-8626-425d-8db7-7c18762572d0
-# ╟─2bea8d97-4df8-4794-bdcf-5cd8bfcd1bf0
-# ╠═87ef8c7c-aef9-4b05-b106-c538749c53ec
-# ╠═2413fee7-c2b6-49d5-9a28-89cd0e8b38a5
-# ╠═6de85cfa-94f5-4e56-9b79-b87e29ec0df7
-# ╟─809c8465-7afd-4875-9f92-f0488177e465
-# ╟─fe829849-27ca-46bb-8453-a7e065fd5c2f
-# ╠═44d48710-21ac-42c8-ac83-9aed9367558b
-# ╠═8a627e1c-9493-4440-84f5-8f981dbbb79d
-# ╠═da3547bd-5b78-44bb-a4ef-5b7c87d03fc2
+# ╟─d2e14b19-98d7-4fba-8bd9-bbbb47e002f6
+# ╟─ce3c8fde-802a-11ec-1b1a-31be58ae3474
+# ╟─fd2ee11d-1734-457b-b587-4128b474b772
+# ╟─7b619e85-abb8-4115-a9df-b5fedd04a8e4
+# ╠═da9796ce-4572-4d2d-bb96-5949f52d46d0
+# ╟─aca5d158-2902-4b7a-bf50-6f7a722f5ea7
+# ╟─8a3c8101-0c2a-438f-ba58-b80e9b14bc10
+# ╠═5732d2dc-c411-4c56-9720-ce6d979fc60f
+# ╠═d993ffa0-c613-4b4b-baeb-a223ce408217
+# ╟─782a5034-9184-4a55-b877-bd0bb4e4aebb
+# ╠═14d69119-9a68-428b-a857-56298b42aee5
+# ╟─46533172-0fe1-406b-a52d-23305282d43b
+# ╠═b13c9cc4-3c4e-4416-896f-d5cbdc2d51c0
+# ╟─fdfb1f2e-6105-43dd-92cf-4b78e1db8e73
+# ╟─61aa9056-ebfe-4c06-a752-d081ece68167
+# ╟─75efd803-be55-4d0f-b8c8-6b63dd90d68c
+# ╠═8f1298ab-309f-4d4d-8165-4ee522f3b1c8
+# ╟─602b3c77-e46e-4592-a787-4aeed77eb059
+# ╟─c7c1ec65-49ed-4ae9-b9a9-0d82a346af81
+# ╠═283c45af-47a3-4446-b873-205d8aa568e7
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

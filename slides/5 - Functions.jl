@@ -29,6 +29,9 @@ md"""
 Julia gives us a few different ways to write a function. The first requires the `function` and `end` keywords
 """
 
+# ╔═╡ a637b4f0-bc1a-4071-be73-d00c257d4266
+md"### 1. Default variant:"
+
 # ╔═╡ 07ed7ab9-a5a4-418c-b71f-5c2bc681eeb3
 function sayhi(name)
     return "Hi $name, it's great to see you!"
@@ -52,6 +55,9 @@ f(42)
 # ╔═╡ ed5addf3-f534-4ab7-944d-ca948c177ce4
 bigbreak
 
+# ╔═╡ 200a1cbb-9e71-4996-8d4f-8204a8701344
+md"### 2. Shortcut variant:"
+
 # ╔═╡ 53a47fcd-52f7-49bf-a274-97496258ace6
 md"Alternatively, we could have declared either of these functions in a single line"
 
@@ -69,6 +75,9 @@ f2(42)
 
 # ╔═╡ e9cf1e4e-e5fa-46de-ab86-f7a35e5b1302
 bigbreak
+
+# ╔═╡ 9e4f43a7-58e7-4b86-b874-e5cb44298e23
+md"### 3. Anonymous functions:"
 
 # ╔═╡ 162585b0-936d-4f9f-8667-3e8c5a1b7212
 md"""Finally, we could have declared these as "anonymous" functions"""
@@ -124,8 +133,11 @@ md"""On the other hand, `f` will not work on a vector. Unlike `A^2`, which is we
 # ╔═╡ 5620baa2-2aed-49eb-84a1-9fcfdee568c9
 v = rand(3)
 
+# ╔═╡ aa60f167-fa1f-4a7e-9d87-eeba0146ed0f
+bigbreak
+
 # ╔═╡ 770cafe7-11e8-4b1c-86c9-b51e4c20ec42
-# This won't work
+# This won't work:
 f(v)
 
 # ╔═╡ 652b18db-731f-4283-b5dc-26dc95bf25a5
@@ -141,13 +153,11 @@ For example, let's look at the difference between `sort` and `sort!`.
 """
 
 # ╔═╡ ee1468af-b2d0-4505-ad59-4b04437d0751
-w = [3, 5, 2]
-
-# ╔═╡ 10bd24ae-41ec-4f5f-8a1e-344820797048
-sort(w)
-
-# ╔═╡ 1c6c97f5-6005-488e-9ef4-6313df589e14
-w
+let
+	w = [3, 1, 2]
+	sort(w)
+	w
+end
 
 # ╔═╡ 1589bbe3-15c4-495b-aae2-eac2f421b2f8
 md"""
@@ -157,10 +167,11 @@ On the other hand, when we run `sort!(w)`, the contents of `w` are sorted within
 """
 
 # ╔═╡ efb84537-41b6-41af-9205-9df193d49dcc
-sort!(w)
-
-# ╔═╡ e076870d-b8db-444f-8436-6750515e4d12
-w
+let
+	w = [3, 1, 2]
+	sort!(w)
+	w
+end
 
 # ╔═╡ d52cb505-1492-4e64-869a-d598fd99d361
 bigbreak
@@ -351,6 +362,9 @@ Write a function `add_one` that adds 1 to its input.
 # ╔═╡ 1e1b4cca-0753-440b-9eb2-6f8382964e71
 add_one() = 0
 
+# ╔═╡ 68c25eb9-c682-4f7d-8c82-1e786557de01
+
+
 # ╔═╡ 86edb75d-a484-4d7f-bf9a-bc6b97cce3ec
 begin
 	@assert add_one(1) == 2
@@ -375,6 +389,9 @@ begin
 	A1 = B
 end
 
+# ╔═╡ e11ca969-a16a-451d-9f6f-5f826d18a55f
+
+
 # ╔═╡ b9d3ae00-42a2-4007-a0f9-3327d656a425
 @assert A1 == [2 3 4; 5 6 7; 8 9 10]
 
@@ -392,6 +409,9 @@ Use the broadcast dot syntax to increment every element of matrix `A1` by `1` an
 begin
 	A2 = A1
 end
+
+# ╔═╡ da127939-3adc-40c9-9031-db9dd3de847b
+
 
 # ╔═╡ 15459bb0-bd18-4d48-b39a-193f7a01b1f8
 @assert A2 == [3 4 5; 6 7 8; 9 10 11]
@@ -616,18 +636,21 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─6a407bd2-802c-11ec-3ed6-a7acf451b25a
 # ╟─6a407bd2-802c-11ec-0c58-b3f5f4ac5b8f
 # ╟─e75e9339-1d60-4d04-9063-a5885d0113f8
+# ╟─a637b4f0-bc1a-4071-be73-d00c257d4266
 # ╠═07ed7ab9-a5a4-418c-b71f-5c2bc681eeb3
 # ╠═f8ce588a-cf7f-4b61-ac9f-afb520003571
 # ╠═fd562b69-53ba-4554-9897-6c5709e237fe
 # ╠═809baaa8-339b-4b70-bb21-8c24a9cab24f
 # ╠═87ceb82b-94a7-4e5a-84da-f56e24279755
 # ╟─ed5addf3-f534-4ab7-944d-ca948c177ce4
+# ╟─200a1cbb-9e71-4996-8d4f-8204a8701344
 # ╟─53a47fcd-52f7-49bf-a274-97496258ace6
 # ╠═2413ce2b-ee1b-4d3f-ad8d-ca4064b19d7c
 # ╠═928f37b1-9059-4b6e-b733-89997203c138
 # ╠═40666547-6209-42fd-a14f-4c944a5e30ab
 # ╠═b7a066ac-7d19-4449-bb1e-bf7fcab4eadc
 # ╟─e9cf1e4e-e5fa-46de-ab86-f7a35e5b1302
+# ╟─9e4f43a7-58e7-4b86-b874-e5cb44298e23
 # ╟─162585b0-936d-4f9f-8667-3e8c5a1b7212
 # ╠═191be85a-9cce-4af2-bbe8-6c45d7ab30df
 # ╠═6b2b763f-6223-4c50-93a0-54680c4313ff
@@ -643,15 +666,13 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═04a0dbd8-d8f2-434b-8968-63ee989b3131
 # ╟─f95f8ea9-1478-4ac2-8e22-085fc6516e56
 # ╠═5620baa2-2aed-49eb-84a1-9fcfdee568c9
+# ╟─aa60f167-fa1f-4a7e-9d87-eeba0146ed0f
 # ╠═770cafe7-11e8-4b1c-86c9-b51e4c20ec42
 # ╟─652b18db-731f-4283-b5dc-26dc95bf25a5
 # ╟─5bea284c-9eed-467a-b916-1ba6bc99495f
 # ╠═ee1468af-b2d0-4505-ad59-4b04437d0751
-# ╠═10bd24ae-41ec-4f5f-8a1e-344820797048
-# ╠═1c6c97f5-6005-488e-9ef4-6313df589e14
 # ╟─1589bbe3-15c4-495b-aae2-eac2f421b2f8
 # ╠═efb84537-41b6-41af-9205-9df193d49dcc
-# ╠═e076870d-b8db-444f-8436-6750515e4d12
 # ╟─d52cb505-1492-4e64-869a-d598fd99d361
 # ╟─2bc704f5-82e8-4a43-b5ae-1cdbfc18747b
 # ╠═3eb97bc4-0ea7-466c-a237-f40fc8b43a71
@@ -690,15 +711,18 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─6b3f422f-e8cc-480c-aede-296808d063fc
 # ╠═fc405e7f-d062-41ed-bcc3-5599e80e3467
 # ╠═1e1b4cca-0753-440b-9eb2-6f8382964e71
+# ╟─68c25eb9-c682-4f7d-8c82-1e786557de01
 # ╟─86edb75d-a484-4d7f-bf9a-bc6b97cce3ec
 # ╟─185ffedc-8462-4ef3-add4-9ba371e236ee
 # ╟─56ead0a8-4c9b-4e07-9a8c-0c56b4b30c21
 # ╠═8e725749-3c7a-413d-8838-49e471c8b47e
 # ╠═bd5e73ca-a683-476b-8239-ddf57cba89ba
+# ╟─e11ca969-a16a-451d-9f6f-5f826d18a55f
 # ╠═b9d3ae00-42a2-4007-a0f9-3327d656a425
 # ╟─e83429b7-77e9-4efe-a365-827b7234c360
 # ╠═93609093-4353-44a3-be9f-5ac41ec69c81
 # ╠═43917a91-235f-49ab-9a60-dc0dfd9bcb4d
+# ╟─da127939-3adc-40c9-9031-db9dd3de847b
 # ╠═15459bb0-bd18-4d48-b39a-193f7a01b1f8
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

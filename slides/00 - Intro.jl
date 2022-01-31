@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+end
+
 # ╔═╡ d55bc09f-90f8-4a68-8f66-49a0538c682d
 begin
 	using PlutoUI
@@ -139,6 +149,9 @@ md"""
 However, good Julia code is often still pretty (and usually needs much less memory)!
 """
 
+# ╔═╡ ff3539e9-296f-403d-a031-86c4df8566f7
+[i+j for i in 1:10, j in 1:2]
+
 # ╔═╡ be19363a-dfd3-430e-b1c9-f8b69309411d
 let 
 	xs = -2:0.25:2
@@ -167,6 +180,15 @@ bigbreak
 
 # ╔═╡ 9bccf94a-19d1-4d31-82d5-d882b1fd1e29
 md"## Task #0: How to work with Julia in the terminal (aka REPL) and the Juno IDE."
+
+# ╔═╡ add8900c-f7a6-450e-8e04-0e7237cf80f3
+@bind n PlutoUI.Slider(1:100) 
+
+# ╔═╡ 250726a2-4c56-46fe-a2b1-8f5da0dc761e
+n^2
+
+# ╔═╡ 56a560dc-dfac-43a9-afa2-a3cd6733d14f
+n^5
 
 # ╔═╡ 711dc218-0d78-4a39-a380-bc461e249ba5
 bigbreak
@@ -486,11 +508,15 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═ae2fc32c-a471-4e64-9d33-e9e6bf677166
 # ╟─3608f7cf-86e3-4cdb-ada6-46c6beb3310a
 # ╟─b6406021-00e6-419f-8e15-9f80196433eb
+# ╠═ff3539e9-296f-403d-a031-86c4df8566f7
 # ╠═be19363a-dfd3-430e-b1c9-f8b69309411d
 # ╟─0c50f149-4cea-4793-acd2-91b58595dc3b
 # ╟─a725c129-1f57-47d3-810c-bfee4f600bcf
 # ╟─80986d60-d993-4293-bd22-72cdef15988b
 # ╟─9bccf94a-19d1-4d31-82d5-d882b1fd1e29
+# ╠═add8900c-f7a6-450e-8e04-0e7237cf80f3
+# ╠═250726a2-4c56-46fe-a2b1-8f5da0dc761e
+# ╠═56a560dc-dfac-43a9-afa2-a3cd6733d14f
 # ╟─711dc218-0d78-4a39-a380-bc461e249ba5
 # ╟─7bcf336b-c2dc-40ad-bb43-82fbca1c8565
 # ╟─e42073de-0d42-42c3-9f1a-53f2ff54b91c
