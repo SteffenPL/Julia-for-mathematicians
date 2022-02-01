@@ -339,22 +339,18 @@ bigbreak
 md"""
 ## Exercises
 3.1
-Create an array, a_ray, with the following code:
+Create an array, `x` with the number 1 to 20 and add `+ 10` to all odd entries.
 
-```julia
-a_ray = [1, 2, 3]
-```
-Add the number 4 to the end of this array and then remove it.
 """
 
 # ╔═╡ 4170966b-cbb4-4b7b-b6e0-528f63a1c019
 begin
-	a_ray = missing
+	x = []
 	# ...
 end
 
 # ╔═╡ f720b6ad-eea0-4c07-b528-822b80305000
-@assert a_ray == [1, 2, 3]
+md"""_The current solution is $( (x == [i + (i%2==1)*10 for i in 1:20]) ? "correct" : "false")._"""
 
 # ╔═╡ 7831cafd-8ac8-41be-ad0d-a5abeeb66276
 bigbreak
@@ -365,7 +361,7 @@ md"""
 
 Try to add `"Emergency"` as key to `ourphonebook` with the value `string(911)` with the following code
 ```julia
-myphonebook["Emergency"] = 112
+ourphonebook["Emergency"] = 112
 ```
 Why doesn't this work?
 """
@@ -374,56 +370,21 @@ Why doesn't this work?
 ourphonebook = Dict("Jenny" => "867-5309", "Ghostbusters" => "555-2368")
 
 # ╔═╡ b8c1cdf5-550e-49be-83b0-2a01fc583886
+# enter you code here
+
+# ╔═╡ 1b7789aa-1969-486c-a733-6e3d10d135bc
 
 
-# ╔═╡ c9d13f74-7f9e-4c94-b2b8-042bc13d3a70
-bigbreak
-
-# ╔═╡ 6d5abec8-c3c2-45c6-bf5e-8e7cfabd3740
-md"""
-3.3
-
-Create a new dictionary called flexible_phonebook that has Jenny's number stored as an integer and Ghostbusters' number stored as a string with the following code
-```julia
-flexible_phonebook = Dict("Jenny" => 8675309, "Ghostbusters" => "555-2368")
-```
-"""
-
-# ╔═╡ 61f55b2d-06c9-4ee1-90c8-d4c8a7d9bb7d
-flexible_phonebook = missing
-
-# ╔═╡ 085c1fda-4f3e-477b-af27-e0d45664a93a
-@assert flexible_phonebook == Dict("Jenny" => 8675309, "Ghostbusters" => "555-2368")
-
-# ╔═╡ fd229fd8-aaa2-4502-99be-a78dfd3fa22f
-md"""
-3.4
-
-Add the key "Emergency" with the value 112 (an integer) to flexible_phonebook.
-"""
-
-# ╔═╡ 2c41bcbd-45c9-4b68-84fe-4cd00eaef224
-
-
-# ╔═╡ 214522b3-d01f-4095-b2ee-878595230c75
-@assert haskey(flexible_phonebook, "Emergency")
-
-# ╔═╡ 77077855-cca7-49ac-9ceb-559960339131
-@assert flexible_phonebook["Emergency"] == 911
+# ╔═╡ f42fa416-47d1-49b6-9d4b-365740908e03
+md"How can you change the definition of `ourphonebook` such that you can add and integer value?"
 
 # ╔═╡ 4f191e04-1972-47af-b1d9-2de4857833bb
 bigbreak
 
 # ╔═╡ 342337cc-6202-45f7-bf5d-6688b770ac75
 md"""
-3.5
-
-Why can we add an integer as a value to `flexible_phonebook` but not `myphonebook`? 
-
-How could we have initialized myphonebook so that it would accept integers as values? 
-
 !!! hint "Hint"  
-      Check out `typeof()` for these dictionaries. Try using Julia's documentation for dictionaries)
+      Check out `typeof()` for these dictionaries. You can use `Dict{K,V}` instead of the generic `Dict` to create a dictionary with key type `T` and value type `V`. What should `V` be?
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -722,21 +683,15 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═8af669a5-4f1f-4f0e-9de7-030e3196f96b
 # ╟─32035322-60ec-4ed7-a340-84c6457a2464
 # ╟─2c04e557-4afa-4acc-ace1-45f994aa3ed3
-# ╟─83c37801-d248-442a-a360-829f740f5cd9
+# ╠═83c37801-d248-442a-a360-829f740f5cd9
 # ╠═4170966b-cbb4-4b7b-b6e0-528f63a1c019
-# ╠═f720b6ad-eea0-4c07-b528-822b80305000
+# ╟─f720b6ad-eea0-4c07-b528-822b80305000
 # ╟─7831cafd-8ac8-41be-ad0d-a5abeeb66276
 # ╟─fc60372a-f853-4005-bc40-64e9d0615a32
 # ╠═89b74238-dd21-4063-bdb8-d64adcc2184c
 # ╠═b8c1cdf5-550e-49be-83b0-2a01fc583886
-# ╟─c9d13f74-7f9e-4c94-b2b8-042bc13d3a70
-# ╟─6d5abec8-c3c2-45c6-bf5e-8e7cfabd3740
-# ╠═61f55b2d-06c9-4ee1-90c8-d4c8a7d9bb7d
-# ╠═085c1fda-4f3e-477b-af27-e0d45664a93a
-# ╠═fd229fd8-aaa2-4502-99be-a78dfd3fa22f
-# ╠═2c41bcbd-45c9-4b68-84fe-4cd00eaef224
-# ╠═214522b3-d01f-4095-b2ee-878595230c75
-# ╠═77077855-cca7-49ac-9ceb-559960339131
+# ╟─1b7789aa-1969-486c-a733-6e3d10d135bc
+# ╟─f42fa416-47d1-49b6-9d4b-365740908e03
 # ╟─4f191e04-1972-47af-b1d9-2de4857833bb
 # ╟─342337cc-6202-45f7-bf5d-6688b770ac75
 # ╟─00000000-0000-0000-0000-000000000001

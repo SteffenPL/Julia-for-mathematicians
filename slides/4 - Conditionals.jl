@@ -144,11 +144,11 @@ Use the ternary operator to construct a reasonable answer from Bob in the dialog
 """
 
 # ╔═╡ 283c45af-47a3-4446-b873-205d8aa568e7
-with_terminal() do 
-	println("""
-	Alice: Is the number $M even? 
-	Bob:   I don't know.""")
-end
+md"""
+**Alice:** _Is the number $M even?_
+ 
+**Bob:**   _I don't know._
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """

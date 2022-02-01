@@ -133,6 +133,46 @@ md"""The more "Julia" way to create this addition table would have been with an 
 # ╔═╡ 2b9190e9-28c5-456f-97f4-b3b59b2d4957
 C = [i + j for i in 1:m, j in 1:n]
 
+# ╔═╡ 569ab1ca-623f-4569-b128-6a4fe4208d1c
+bigbreak
+
+# ╔═╡ d0ef189a-635e-4811-9c71-206e4a84fd81
+md"""
+### Generators
+
+
+If you don't want to have the data in your memory, generators are your tool!
+"""
+
+# ╔═╡ e7afb4e9-f843-4113-ad67-f2eef26fa443
+G = ( 10*i + j for i in 1:5 for j in 1:5 if i < j);
+
+# ╔═╡ bb5b8711-a987-4921-ac15-ffd3e71e903f
+md"They can be iterated, which is enough for many utility functions, like
+```julia
+sum(), prod(), minimum(), maximum(), map(), broadcast(), ...
+```
+"
+
+# ╔═╡ f19d75e2-a933-4534-b638-a724248671c4
+sum(G)
+
+# ╔═╡ 8d26881f-094c-42e6-95ea-93637646d210
+minimum(G)
+
+# ╔═╡ 50b79c47-09d1-41aa-8b60-5fc1dd114c29
+map(x -> x^2, G)
+
+# ╔═╡ d1782a41-8ea5-456c-a513-7fec9457c9ad
+G.^2  # equivalent to the map command above
+
+# ╔═╡ d0effe30-adf5-4cd2-9bd5-a99138a33e0e
+with_terminal() do
+	for i in G
+		print(i, " ")
+	end
+end
+
 # ╔═╡ 99eefdf8-3ea5-41fb-92cc-5655b5e92fc2
 bigbreak
 
@@ -419,11 +459,11 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═e75a73ad-c49a-4d0d-a548-e96ed41cc5cc
 # ╠═bfe2dd76-54a3-479e-9f94-efaecde8266b
 # ╟─ecd9ce51-6596-4a58-97d1-fbdee32ff1d8
-# ╠═1e88489d-f123-4171-b406-47f6da914674
+# ╟─1e88489d-f123-4171-b406-47f6da914674
 # ╠═22ddbdaf-9483-417c-a702-317daa8c6537
 # ╠═3a38e1ef-7454-498d-af5d-876a9fa6e963
 # ╟─f0390b57-a52e-4669-b992-2acd54f484da
-# ╠═f5a82c3e-47c6-4712-9c7e-7ff3fc1e5203
+# ╟─f5a82c3e-47c6-4712-9c7e-7ff3fc1e5203
 # ╠═44c04d48-4e24-4034-b188-c92ba252ff22
 # ╠═7a662dce-97fa-4c1c-ba60-51f6f147e808
 # ╟─e2308376-31cd-4418-932c-8f166b4a316f
@@ -431,6 +471,15 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═bf437047-2de0-4a5c-93d8-1ecab06dcda6
 # ╟─4441001f-fd92-4f6b-9e5c-6daee5274d54
 # ╠═2b9190e9-28c5-456f-97f4-b3b59b2d4957
+# ╟─569ab1ca-623f-4569-b128-6a4fe4208d1c
+# ╟─d0ef189a-635e-4811-9c71-206e4a84fd81
+# ╠═e7afb4e9-f843-4113-ad67-f2eef26fa443
+# ╟─bb5b8711-a987-4921-ac15-ffd3e71e903f
+# ╠═f19d75e2-a933-4534-b638-a724248671c4
+# ╠═8d26881f-094c-42e6-95ea-93637646d210
+# ╠═50b79c47-09d1-41aa-8b60-5fc1dd114c29
+# ╠═d1782a41-8ea5-456c-a513-7fec9457c9ad
+# ╠═d0effe30-adf5-4cd2-9bd5-a99138a33e0e
 # ╟─99eefdf8-3ea5-41fb-92cc-5655b5e92fc2
 # ╟─f77c41cd-a36e-4ec0-968c-f1842b703032
 # ╠═7021bc95-71bf-4861-98d2-a3f358e5aae6

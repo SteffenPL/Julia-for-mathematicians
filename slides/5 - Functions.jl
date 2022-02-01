@@ -35,12 +35,12 @@ md"### 1. Default variant:"
 # ╔═╡ 07ed7ab9-a5a4-418c-b71f-5c2bc681eeb3
 function sayhi(name)
     return "Hi $name, it's great to see you!"
-end
+end;
 
 # ╔═╡ f8ce588a-cf7f-4b61-ac9f-afb520003571
 function f(x)
     x^2
-end
+end;
 
 # ╔═╡ fd562b69-53ba-4554-9897-6c5709e237fe
 md"
@@ -347,6 +347,38 @@ broadcast(x -> x + 2 * f(x) / x, A)
 # ╔═╡ 60eea80b-a510-455b-a2a4-d16366303b87
 md"and the two will do exactly the same!"
 
+# ╔═╡ 63032f05-4635-438b-9c56-5571620a180d
+bigbreak
+
+# ╔═╡ 62d01357-fdc5-4bd2-9b32-d7515c0c44f6
+md"""### Fusing the dot operator
+
+Composition of `broadcast` is suboptimal, as in each step an intermediate resulat is stored, i.e.
+```julia
+A .+ B .+ C == broadcast( (r+c) -> r + c, broadcast( (a,b) -> a+b, A, B), C)
+```
+
+But with a hand _macro_ we can fuse those broadcast calls, i.e.
+```julia
+@. A + B + C  ==   broadcast( (a,b,c) -> a+b+c, A, B, C)
+```
+"""
+
+# ╔═╡ e4f1a223-ff88-4588-94b1-1bd6aeb0e856
+A .* A .* A
+
+# ╔═╡ 94070b96-502c-4685-bdb9-f6ee6fe55a06
+@. A * A * A
+
+# ╔═╡ 281ac3be-aaea-4078-9fb0-391997924306
+
+
+# ╔═╡ 96e07c5b-6a14-4aa0-8d96-99aaf19a235f
+@allocated @. A * A * A
+
+# ╔═╡ 7617e358-c1bf-42b8-b0e3-6e50f993ec2e
+@allocated A .* A .* A
+
 # ╔═╡ 6b3f422f-e8cc-480c-aede-296808d063fc
 bigbreak
 
@@ -360,16 +392,15 @@ Write a function `add_one` that adds 1 to its input.
 """
 
 # ╔═╡ 1e1b4cca-0753-440b-9eb2-6f8382964e71
-add_one() = 0
+
 
 # ╔═╡ 68c25eb9-c682-4f7d-8c82-1e786557de01
 
 
 # ╔═╡ 86edb75d-a484-4d7f-bf9a-bc6b97cce3ec
-begin
-	@assert add_one(1) == 2
-	@assert add_one(11) == 12
-end
+( @isdefined(add_one) && 
+hasmethod(add_one, Tuple{Union{Any,Int,Float64}}) && 
+add_one(11) == 12)
 
 # ╔═╡ 185ffedc-8462-4ef3-add4-9ba371e236ee
 bigbreak
@@ -393,7 +424,7 @@ end
 
 
 # ╔═╡ b9d3ae00-42a2-4007-a0f9-3327d656a425
-@assert A1 == [2 3 4; 5 6 7; 8 9 10]
+A1 == [2 3 4; 5 6 7; 8 9 10]
 
 # ╔═╡ e83429b7-77e9-4efe-a365-827b7234c360
 bigbreak
@@ -414,7 +445,7 @@ end
 
 
 # ╔═╡ 15459bb0-bd18-4d48-b39a-193f7a01b1f8
-@assert A2 == [3 4 5; 6 7 8; 9 10 11]
+A2 == [3 4 5; 6 7 8; 9 10 11]
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -639,7 +670,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─a637b4f0-bc1a-4071-be73-d00c257d4266
 # ╠═07ed7ab9-a5a4-418c-b71f-5c2bc681eeb3
 # ╠═f8ce588a-cf7f-4b61-ac9f-afb520003571
-# ╠═fd562b69-53ba-4554-9897-6c5709e237fe
+# ╟─fd562b69-53ba-4554-9897-6c5709e237fe
 # ╠═809baaa8-339b-4b70-bb21-8c24a9cab24f
 # ╠═87ceb82b-94a7-4e5a-84da-f56e24279755
 # ╟─ed5addf3-f534-4ab7-944d-ca948c177ce4
@@ -708,6 +739,13 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─429ec6d9-f80c-4ca7-85b8-db8096f826ea
 # ╠═c6f86e8a-05e8-4ad3-8e7c-3598b22a4779
 # ╟─60eea80b-a510-455b-a2a4-d16366303b87
+# ╟─63032f05-4635-438b-9c56-5571620a180d
+# ╠═62d01357-fdc5-4bd2-9b32-d7515c0c44f6
+# ╠═e4f1a223-ff88-4588-94b1-1bd6aeb0e856
+# ╠═94070b96-502c-4685-bdb9-f6ee6fe55a06
+# ╠═281ac3be-aaea-4078-9fb0-391997924306
+# ╠═96e07c5b-6a14-4aa0-8d96-99aaf19a235f
+# ╠═7617e358-c1bf-42b8-b0e3-6e50f993ec2e
 # ╟─6b3f422f-e8cc-480c-aede-296808d063fc
 # ╠═fc405e7f-d062-41ed-bcc3-5599e80e3467
 # ╠═1e1b4cca-0753-440b-9eb2-6f8382964e71
@@ -718,11 +756,11 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═8e725749-3c7a-413d-8838-49e471c8b47e
 # ╠═bd5e73ca-a683-476b-8239-ddf57cba89ba
 # ╟─e11ca969-a16a-451d-9f6f-5f826d18a55f
-# ╠═b9d3ae00-42a2-4007-a0f9-3327d656a425
+# ╟─b9d3ae00-42a2-4007-a0f9-3327d656a425
 # ╟─e83429b7-77e9-4efe-a365-827b7234c360
 # ╠═93609093-4353-44a3-be9f-5ac41ec69c81
 # ╠═43917a91-235f-49ab-9a60-dc0dfd9bcb4d
 # ╟─da127939-3adc-40c9-9031-db9dd3de847b
-# ╠═15459bb0-bd18-4d48-b39a-193f7a01b1f8
+# ╟─15459bb0-bd18-4d48-b39a-193f7a01b1f8
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
