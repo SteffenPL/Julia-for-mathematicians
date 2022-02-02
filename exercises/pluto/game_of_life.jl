@@ -71,6 +71,12 @@ end
 # ╔═╡ f386ca7b-1b1b-4a44-b10c-b999d942f664
 
 
+# ╔═╡ d8dc3f07-fc20-4058-b543-e6660ac22ea4
+x_1 = 10
+
+# ╔═╡ 6544ba24-4ecb-4536-b0a7-a06dcc199bb9
+x₁ = 10
+
 # ╔═╡ 81b5a5ff-20c8-4f1e-820c-ffad585681e9
 md"### Optional: Visualisation
 
@@ -1287,6 +1293,8 @@ version = "3.5.0+0"
 # ╠═0ceb7ade-7685-4ffb-b79f-e1066628a81c
 # ╠═26de58cf-2a6f-49df-8a94-03cf5fd6e576
 # ╟─f386ca7b-1b1b-4a44-b10c-b999d942f664
+# ╠═d8dc3f07-fc20-4058-b543-e6660ac22ea4
+# ╠═6544ba24-4ecb-4536-b0a7-a06dcc199bb9
 # ╟─81b5a5ff-20c8-4f1e-820c-ffad585681e9
 # ╠═709dde07-7306-45e1-85e3-932b68c24f00
 # ╠═c48af592-cda6-4b5a-bfea-a17765e4697d

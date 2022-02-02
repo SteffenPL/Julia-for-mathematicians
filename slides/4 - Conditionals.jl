@@ -55,6 +55,7 @@ md"N = $N"
 
 # ╔═╡ da9796ce-4572-4d2d-bb96-5949f52d46d0
 with_terminal() do 
+	
 	if (N % 3 == 0) && (N % 5 == 0) 
 		# `&&` means "AND"; % computes the remainder after division
 	    println("FizzBuzz")
@@ -65,6 +66,7 @@ with_terminal() do
 	else
 	    println(N)
 	end
+	
 end
 
 # ╔═╡ aca5d158-2902-4b7a-bf50-6f7a722f5ea7
@@ -110,6 +112,12 @@ md"and as a ternary operator, the conditional looks like this:"
 
 # ╔═╡ b13c9cc4-3c4e-4416-896f-d5cbdc2d51c0
 (x > y) ? x : y
+
+# ╔═╡ 8b81523f-79dc-46ba-8e4e-5dbc19d5d434
+true ? 5 : 2 * 6
+
+# ╔═╡ 7925dfa8-63b1-4fc2-beae-922fa93aa081
+( false  ?  1  : 2 )
 
 # ╔═╡ fdfb1f2e-6105-43dd-92cf-4b78e1db8e73
 bigbreak
@@ -380,6 +388,8 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═14d69119-9a68-428b-a857-56298b42aee5
 # ╟─46533172-0fe1-406b-a52d-23305282d43b
 # ╠═b13c9cc4-3c4e-4416-896f-d5cbdc2d51c0
+# ╠═8b81523f-79dc-46ba-8e4e-5dbc19d5d434
+# ╠═7925dfa8-63b1-4fc2-beae-922fa93aa081
 # ╟─fdfb1f2e-6105-43dd-92cf-4b78e1db8e73
 # ╟─61aa9056-ebfe-4c06-a752-d081ece68167
 # ╟─75efd803-be55-4d0f-b8c8-6b63dd90d68c

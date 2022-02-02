@@ -4,13 +4,6 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 6a407bd2-802c-11ec-3ed6-a7acf451b25a
-begin
-	bigbreak = HTML("<br>"^4);
-	using PlutoUI
-	using Test
-end
-
 # ╔═╡ 6a407bd2-802c-11ec-0c58-b3f5f4ac5b8f
 md"""
 # Functions
@@ -34,13 +27,9 @@ md"### 1. Default variant:"
 
 # ╔═╡ 07ed7ab9-a5a4-418c-b71f-5c2bc681eeb3
 function sayhi(name)
+	
     return "Hi $name, it's great to see you!"
-end;
-
-# ╔═╡ f8ce588a-cf7f-4b61-ac9f-afb520003571
-function f(x)
-    x^2
-end;
+end
 
 # ╔═╡ fd562b69-53ba-4554-9897-6c5709e237fe
 md"
@@ -48,12 +37,6 @@ We can call either of these functions like this:"
 
 # ╔═╡ 809baaa8-339b-4b70-bb21-8c24a9cab24f
 sayhi("C-3PO")
-
-# ╔═╡ 87ceb82b-94a7-4e5a-84da-f56e24279755
-f(42)
-
-# ╔═╡ ed5addf3-f534-4ab7-944d-ca948c177ce4
-bigbreak
 
 # ╔═╡ 200a1cbb-9e71-4996-8d4f-8204a8701344
 md"### 2. Shortcut variant:"
@@ -64,17 +47,8 @@ md"Alternatively, we could have declared either of these functions in a single l
 # ╔═╡ 2413ce2b-ee1b-4d3f-ad8d-ca4064b19d7c
 sayhi2(name) = "Hi $name, it's great to see you!"
 
-# ╔═╡ 928f37b1-9059-4b6e-b733-89997203c138
-f2(x) = x^2
-
 # ╔═╡ 40666547-6209-42fd-a14f-4c944a5e30ab
 sayhi2("R2D2")
-
-# ╔═╡ b7a066ac-7d19-4449-bb1e-bf7fcab4eadc
-f2(42)
-
-# ╔═╡ e9cf1e4e-e5fa-46de-ab86-f7a35e5b1302
-bigbreak
 
 # ╔═╡ 9e4f43a7-58e7-4b86-b874-e5cb44298e23
 md"### 3. Anonymous functions:"
@@ -83,19 +57,10 @@ md"### 3. Anonymous functions:"
 md"""Finally, we could have declared these as "anonymous" functions"""
 
 # ╔═╡ 191be85a-9cce-4af2-bbe8-6c45d7ab30df
-sayhi3 = name -> "Hi $name, it's great to see you!"
-
-# ╔═╡ 6b2b763f-6223-4c50-93a0-54680c4313ff
-f3 = x -> x^2
+name -> "Hi $name, it's great to see you!"
 
 # ╔═╡ 3a74682e-72ff-4f91-9884-52e26c64c427
 sayhi3("Chewbacca")
-
-# ╔═╡ 353c23a2-4e6d-401f-8a0c-8038f4ef0998
-f3(42)
-
-# ╔═╡ dbd09e73-afa6-4065-baee-342951e10031
-bigbreak
 
 # ╔═╡ bcd284f3-cb2a-482e-ba27-9a5f7a86c046
 md"""
@@ -118,14 +83,8 @@ And `f` will work on a matrix."
 # ╔═╡ c4b6e75d-0a51-4159-b7f7-292f5e25d1be
 A = rand(3, 3)
 
-# ╔═╡ 9b8a0c73-27f4-48af-b13b-0af1711440b3
-f(A)
-
 # ╔═╡ ec0b4d04-44ce-40ae-b807-8ba38a6a8b59
 md"""`f` will also work on a string like "hi" because * is defined for string inputs as string concatenation."""
-
-# ╔═╡ 04a0dbd8-d8f2-434b-8968-63ee989b3131
-f("hi")
 
 # ╔═╡ f95f8ea9-1478-4ac2-8e22-085fc6516e56
 md"""On the other hand, `f` will not work on a vector. Unlike `A^2`, which is well-defined, the meaning of `v^2` for a vector, `v`, is not a well-defined algebraic operation. """
@@ -133,12 +92,47 @@ md"""On the other hand, `f` will not work on a vector. Unlike `A^2`, which is we
 # ╔═╡ 5620baa2-2aed-49eb-84a1-9fcfdee568c9
 v = rand(3)
 
+# ╔═╡ 23b408a4-a91a-4828-a7d8-038325e31d64
+Base.:^(x::Vector, i::Int64) = x .^ i
+
+# ╔═╡ 6a407bd2-802c-11ec-3ed6-a7acf451b25a
+begin
+	bigbreak = HTML("<br>"^4);
+	using PlutoUI
+	using Test
+end
+
+# ╔═╡ ed5addf3-f534-4ab7-944d-ca948c177ce4
+bigbreak
+
+# ╔═╡ e9cf1e4e-e5fa-46de-ab86-f7a35e5b1302
+bigbreak
+
+# ╔═╡ dbd09e73-afa6-4065-baee-342951e10031
+bigbreak
+
 # ╔═╡ aa60f167-fa1f-4a7e-9d87-eeba0146ed0f
 bigbreak
 
-# ╔═╡ 770cafe7-11e8-4b1c-86c9-b51e4c20ec42
-# This won't work:
-f(v)
+# ╔═╡ f8ce588a-cf7f-4b61-ac9f-afb520003571
+function f(x)
+    return x^2
+end
+
+# ╔═╡ 928f37b1-9059-4b6e-b733-89997203c138
+f2(x) = x^2
+
+# ╔═╡ b7a066ac-7d19-4449-bb1e-bf7fcab4eadc
+f2(42)
+
+# ╔═╡ 51955b6a-9508-49ca-b435-ba54fb8deb1a
+f4(x) = x^2
+
+# ╔═╡ 6b2b763f-6223-4c50-93a0-54680c4313ff
+f3 = x -> x^2
+
+# ╔═╡ 353c23a2-4e6d-401f-8a0c-8038f4ef0998
+f3(42)
 
 # ╔═╡ 652b18db-731f-4283-b5dc-26dc95bf25a5
 bigbreak
@@ -155,7 +149,7 @@ For example, let's look at the difference between `sort` and `sort!`.
 # ╔═╡ ee1468af-b2d0-4505-ad59-4b04437d0751
 let
 	w = [3, 1, 2]
-	sort(w)
+	w = sort(w)
 	w
 end
 
@@ -180,28 +174,44 @@ bigbreak
 md"""
 ## Optional arguments and keyword arguments
 
-You can provide default values for some input arguments.
+There are three kind of arguments:
+
+- **Required arguments**, first in the list
+- **Optional arguments**, with `= value` to indicate default choice (order matters!)
+- **Keword arguments**, after a semicolon `;`. (order does not matter, only keywords) 
+"""
+
+# ╔═╡ d451cbb3-fd29-46c8-a4ff-a36db76c97ca
+md"""
+```julia
+function fnc( req1, req2, 
+		      op1 = dv1, opt2 = dv2; 
+   			  kw1 = kval1, kw2 = kval2)
+
+end
+```
+
 """
 
 # ╔═╡ 3eb97bc4-0ea7-466c-a237-f40fc8b43a71
-function g(x, y = 0.0; a = 0, b = 0)
-	return a*x + y*b
+function g(x, y = 1.0; a = 2, b = 3)
+	return (;x,y,a,b)
 end
 
 # ╔═╡ 3b57b7eb-d4ea-4668-a702-48d1950e8d63
 md"You can call this function in this way:"
 
 # ╔═╡ ce4831c8-e098-4837-901f-383a445a2998
-g(1.0; b = 1.0)
+g("🐱"; b = "🐶")
 
 # ╔═╡ 216540a3-0c24-4854-b17e-cd1623e93c43
-g(1.0, 2.0)
+g("🐱", "🐶")
 
 # ╔═╡ 2de2c2bb-1b17-4085-a0d7-de322fb21370
-g(1.0; a = 2.0)
+g("🐱"; a = "🐶")
 
 # ╔═╡ 8eee9f7d-7645-4ff1-b4ef-04dbb4da386e
-g(1.0)
+g("🐱")
 
 # ╔═╡ 3c315931-12fb-4b86-b745-9053cb8ccf68
 md"_It is recommended (but optional) to separate optional arguments and keyword arguments with ';'_"
@@ -226,9 +236,6 @@ will give you an output array where the function `f` has been applied to all ele
 [f(1), f(2), f(3)]
 ```
 """
-
-# ╔═╡ 01590c72-ec3e-4db5-957a-02308a6a5e6c
-map(f, [1, 2, 3])
 
 # ╔═╡ 2b69252d-cf04-40b6-95d9-eacf369c4dc5
 md"""
@@ -259,9 +266,6 @@ md"""
 `broadcast` is another higher-order function like `map`. `broadcast` is a generalization of `map`, so it can do every thing `map` can do and more. The syntax for calling `broadcast` is the same as for calling `map`
 """
 
-# ╔═╡ 928bf981-ba2d-4eb7-9b31-8dd88be33976
-broadcast(f, [1, 2, 3])
-
 # ╔═╡ 69e8fbb4-38e2-402b-89a0-018b4083d7a1
 md"""
 and again, we've applied `f` (squared) to all the elements of `[1, 2, 3]` - this time by "broadcasting" `f`!
@@ -276,9 +280,6 @@ is the same as
 f.([1, 2, 3])
 ```
 """
-
-# ╔═╡ 413e16a6-c8af-43b5-85ab-e6bd16690006
-f.([1, 2, 3])
 
 # ╔═╡ a20f8214-0126-43f4-8a56-bcfed741463f
 md"""
@@ -303,11 +304,14 @@ f.(A)
 for a matrix `A`:
 """
 
+# ╔═╡ 963169eb-9244-4bbd-8337-65fec67c725c
+A
+
 # ╔═╡ 7b411fc5-7ab1-4052-a199-3195a931860a
 B = [i + 3*j for j in 0:2, i in 1:3]
 
-# ╔═╡ 33b1ce0b-371d-4af8-af52-7328e4e5b70b
-f(B)
+# ╔═╡ 99edddcb-73ac-4848-9540-d8ac22f80e5f
+
 
 # ╔═╡ 3dafca9a-56ee-4a83-9853-917efaf6a93d
 md"""
@@ -319,8 +323,39 @@ f(A) = A^2 = A * A
 On the other hand,
 """
 
+# ╔═╡ e56b633e-8b74-4629-b564-f9a4a656626f
+f(x,y) = 10*x + y
+
+# ╔═╡ 87ceb82b-94a7-4e5a-84da-f56e24279755
+f(42)
+
+# ╔═╡ 9b8a0c73-27f4-48af-b13b-0af1711440b3
+f(A)
+
+# ╔═╡ 04a0dbd8-d8f2-434b-8968-63ee989b3131
+f("hi")
+
+# ╔═╡ 770cafe7-11e8-4b1c-86c9-b51e4c20ec42
+# This won't work:
+f(v)
+
+# ╔═╡ 01590c72-ec3e-4db5-957a-02308a6a5e6c
+map(f, [1, 2, 3])
+
+# ╔═╡ 928bf981-ba2d-4eb7-9b31-8dd88be33976
+broadcast(f, [1, 2, 3])
+
+# ╔═╡ 413e16a6-c8af-43b5-85ab-e6bd16690006
+f.( [1, 2, 3] )
+
+# ╔═╡ 33b1ce0b-371d-4af8-af52-7328e4e5b70b
+f(B) == B*B == B^2
+
 # ╔═╡ f3efe46a-f1bc-4792-884d-b29ef98595df
-f.(B)
+f.(B) == B .^ 2
+
+# ╔═╡ 1537e7c8-4e74-4eb5-8a26-7dbb3af600ab
+f.( [1,2], 2)
 
 # ╔═╡ a18cdba8-8969-4715-992e-2f3ea339c6e1
 md"""
@@ -330,6 +365,9 @@ This dot syntax for broadcasting allows us to write relatively complex compound 
 """
 
 # ╔═╡ 59fea39e-dea8-4412-8cd3-64b4cede04db
+A .+ 2 .* f.(A) ./ A
+
+# ╔═╡ e29c6b03-1128-4928-9878-289886dbef38
 A .+ 2 .* f.(A) ./ A
 
 # ╔═╡ 4477326e-bef1-4b74-a24b-c421fcb60c18
@@ -678,6 +716,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─53a47fcd-52f7-49bf-a274-97496258ace6
 # ╠═2413ce2b-ee1b-4d3f-ad8d-ca4064b19d7c
 # ╠═928f37b1-9059-4b6e-b733-89997203c138
+# ╠═51955b6a-9508-49ca-b435-ba54fb8deb1a
 # ╠═40666547-6209-42fd-a14f-4c944a5e30ab
 # ╠═b7a066ac-7d19-4449-bb1e-bf7fcab4eadc
 # ╟─e9cf1e4e-e5fa-46de-ab86-f7a35e5b1302
@@ -699,6 +738,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═5620baa2-2aed-49eb-84a1-9fcfdee568c9
 # ╟─aa60f167-fa1f-4a7e-9d87-eeba0146ed0f
 # ╠═770cafe7-11e8-4b1c-86c9-b51e4c20ec42
+# ╠═23b408a4-a91a-4828-a7d8-038325e31d64
 # ╟─652b18db-731f-4283-b5dc-26dc95bf25a5
 # ╟─5bea284c-9eed-467a-b916-1ba6bc99495f
 # ╠═ee1468af-b2d0-4505-ad59-4b04437d0751
@@ -706,6 +746,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═efb84537-41b6-41af-9205-9df193d49dcc
 # ╟─d52cb505-1492-4e64-869a-d598fd99d361
 # ╟─2bc704f5-82e8-4a43-b5ae-1cdbfc18747b
+# ╟─d451cbb3-fd29-46c8-a4ff-a36db76c97ca
 # ╠═3eb97bc4-0ea7-466c-a237-f40fc8b43a71
 # ╟─3b57b7eb-d4ea-4668-a702-48d1950e8d63
 # ╠═ce4831c8-e098-4837-901f-383a445a2998
@@ -728,12 +769,17 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═413e16a6-c8af-43b5-85ab-e6bd16690006
 # ╟─a20f8214-0126-43f4-8a56-bcfed741463f
 # ╟─0bdca8db-d6f6-4cc3-8661-98c5cb72fdae
+# ╠═963169eb-9244-4bbd-8337-65fec67c725c
 # ╠═7b411fc5-7ab1-4052-a199-3195a931860a
+# ╠═99edddcb-73ac-4848-9540-d8ac22f80e5f
 # ╠═33b1ce0b-371d-4af8-af52-7328e4e5b70b
 # ╟─3dafca9a-56ee-4a83-9853-917efaf6a93d
 # ╠═f3efe46a-f1bc-4792-884d-b29ef98595df
+# ╠═e56b633e-8b74-4629-b564-f9a4a656626f
+# ╠═1537e7c8-4e74-4eb5-8a26-7dbb3af600ab
 # ╟─a18cdba8-8969-4715-992e-2f3ea339c6e1
 # ╠═59fea39e-dea8-4412-8cd3-64b4cede04db
+# ╠═e29c6b03-1128-4928-9878-289886dbef38
 # ╟─4477326e-bef1-4b74-a24b-c421fcb60c18
 # ╠═f0dead06-58f6-4c97-9f14-5000b79be8cb
 # ╟─429ec6d9-f80c-4ca7-85b8-db8096f826ea

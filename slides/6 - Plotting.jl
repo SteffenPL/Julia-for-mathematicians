@@ -289,6 +289,9 @@ let
 	# your code
 end
 
+# ╔═╡ 2fc3d115-ab17-4bcc-838f-e8fb87a2fa85
+
+
 # ╔═╡ 9cd0079b-8a82-4d86-9972-5025e0070c89
 md"
 2. Add $x^2$ to the plot (use the keyword argument `linestyle = :dash` for $x^2$)."
@@ -1515,7 +1518,7 @@ version = "3.5.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╠═23c3a86a-f666-4c40-a39d-141820cbea0f
+# ╟─23c3a86a-f666-4c40-a39d-141820cbea0f
 # ╟─e462c7a6-d264-47cf-94ea-a4a91177c4ce
 # ╟─1feaf3c0-820d-11ec-1b7e-a1f8055775a2
 # ╟─fc513c4f-2db0-49ef-b602-c744841e556e
@@ -1554,6 +1557,7 @@ version = "3.5.0+0"
 # ╟─7ab6764f-db6d-4ab3-bc5b-a672c991365b
 # ╟─2811988e-cb41-43ad-92b0-4e2e1725fd73
 # ╠═918b9cc5-58a9-4256-9e4b-6dcd4ab89a9e
+# ╟─2fc3d115-ab17-4bcc-838f-e8fb87a2fa85
 # ╟─9cd0079b-8a82-4d86-9972-5025e0070c89
 # ╠═194e458e-d111-4f27-993a-b8467b21a690
 # ╟─b0ef448a-3cf4-4e34-8c74-d1701207d293

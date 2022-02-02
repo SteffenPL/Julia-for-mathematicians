@@ -46,9 +46,13 @@ with_terminal() do
 	i = 1
 	while i <= length(myfriends)
 	    friend = myfriends[i]
-	    println("Hi $friend, it's great to see you!")
+	    print("Hi $friend, it's great to see you!\n")
 	    i += 1
 	end
+end
+
+# ╔═╡ 35079b58-796c-4239-a201-cd6f55c16ca7
+begin
 end
 
 # ╔═╡ ecd9ce51-6596-4a58-97d1-fbdee32ff1d8
@@ -69,8 +73,10 @@ We could use a for loop to generate the same results as either of the examples a
 
 # ╔═╡ 22ddbdaf-9483-417c-a702-317daa8c6537
 with_terminal() do
-	for n in 1:10
-	    println(n)
+	for n ∈ 1:10 
+	    
+		println(n)
+		
 	end
 end
 
@@ -80,6 +86,17 @@ with_terminal() do
 	
 	for friend in myfriends
 	    println("Hi $friend, it's great to see you!")
+	end
+end
+
+# ╔═╡ c146bf2e-b890-482d-9b45-4fcfcf37eb93
+Z = [10 30; 20 40]
+
+# ╔═╡ 8e72a3b6-d276-46b9-b28e-3a9ab7530467
+with_terminal() do
+	
+	for i in CartesianIndices(Z)
+		println(i)
 	end
 end
 
@@ -99,7 +116,7 @@ First, we initialize an array with zeros.
 # ╔═╡ 44c04d48-4e24-4034-b188-c92ba252ff22
 begin
 	m, n = 5, 5
-	A = fill(0, (m, n))
+	A = fill(0.0, (m, n))
 end
 
 # ╔═╡ 7a662dce-97fa-4c1c-ba60-51f6f147e808
@@ -145,7 +162,10 @@ If you don't want to have the data in your memory, generators are your tool!
 """
 
 # ╔═╡ e7afb4e9-f843-4113-ad67-f2eef26fa443
-G = ( 10*i + j for i in 1:5 for j in 1:5 if i < j);
+G = ( 10*i + j   for i in 1:5, j in 1:5    if i < j)
+
+# ╔═╡ 5012a7a4-a37d-49df-9fcc-68a18295f5bd
+G
 
 # ╔═╡ bb5b8711-a987-4921-ac15-ffd3e71e903f
 md"They can be iterated, which is enough for many utility functions, like
@@ -153,6 +173,9 @@ md"They can be iterated, which is enough for many utility functions, like
 sum(), prod(), minimum(), maximum(), map(), broadcast(), ...
 ```
 "
+
+# ╔═╡ bcec978b-6da0-4720-a7fe-a65333233c2d
+collect(G)
 
 # ╔═╡ f19d75e2-a933-4534-b638-a724248671c4
 sum(G)
@@ -164,11 +187,11 @@ minimum(G)
 map(x -> x^2, G)
 
 # ╔═╡ d1782a41-8ea5-456c-a513-7fec9457c9ad
-G.^2  # equivalent to the map command above
+G .^ 2  # equivalent to the map command above
 
 # ╔═╡ d0effe30-adf5-4cd2-9bd5-a99138a33e0e
 with_terminal() do
-	for i in G
+	for i in 1:10
 		print(i, " ")
 	end
 end
@@ -458,10 +481,13 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─58863e50-8029-11ec-28da-35397c3e293f
 # ╠═e75a73ad-c49a-4d0d-a548-e96ed41cc5cc
 # ╠═bfe2dd76-54a3-479e-9f94-efaecde8266b
+# ╠═35079b58-796c-4239-a201-cd6f55c16ca7
 # ╟─ecd9ce51-6596-4a58-97d1-fbdee32ff1d8
 # ╟─1e88489d-f123-4171-b406-47f6da914674
 # ╠═22ddbdaf-9483-417c-a702-317daa8c6537
 # ╠═3a38e1ef-7454-498d-af5d-876a9fa6e963
+# ╠═c146bf2e-b890-482d-9b45-4fcfcf37eb93
+# ╠═8e72a3b6-d276-46b9-b28e-3a9ab7530467
 # ╟─f0390b57-a52e-4669-b992-2acd54f484da
 # ╟─f5a82c3e-47c6-4712-9c7e-7ff3fc1e5203
 # ╠═44c04d48-4e24-4034-b188-c92ba252ff22
@@ -474,7 +500,9 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─569ab1ca-623f-4569-b128-6a4fe4208d1c
 # ╟─d0ef189a-635e-4811-9c71-206e4a84fd81
 # ╠═e7afb4e9-f843-4113-ad67-f2eef26fa443
+# ╠═5012a7a4-a37d-49df-9fcc-68a18295f5bd
 # ╟─bb5b8711-a987-4921-ac15-ffd3e71e903f
+# ╠═bcec978b-6da0-4720-a7fe-a65333233c2d
 # ╠═f19d75e2-a933-4534-b638-a724248671c4
 # ╠═8d26881f-094c-42e6-95ea-93637646d210
 # ╠═50b79c47-09d1-41aa-8b60-5fc1dd114c29

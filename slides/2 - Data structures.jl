@@ -165,6 +165,9 @@ fibonacci = [1, 1, 2, 3, 5, 8, 13]
 # ╔═╡ 24dea8be-3930-4049-9a44-b8151e164d91
 typeof(fibonacci)
 
+# ╔═╡ 7701def7-26b9-4f53-90a9-3eec7be70a16
+eltype(fibonacci)
+
 # ╔═╡ d1571780-39a7-4d8d-9ee0-b9770e235bdd
 md"we can also mix types"
 
@@ -178,7 +181,7 @@ typeof(mixture)
 md"Once we have an array, we can grab individual pieces of data from inside that array by indexing into the array. For example, if we want the third friend listed in myfriends, we write"
 
 # ╔═╡ 46bdba66-e0fa-4631-b0a1-9d532aa25e89
-myfriends[3]
+myfriends[1]
 
 # ╔═╡ 6debf09f-ff30-4e30-93b3-8872c258908c
 md"
@@ -229,6 +232,9 @@ For example, the following are arrays of arrays:"
 # ╔═╡ a6fc5004-5ef2-409c-9b6a-5e7e7efb25ad
 favorites = [["koobideh", "chocolate", "eggs"],["penguins", "cats", "sugargliders"]]
 
+# ╔═╡ c4d8af83-f7f9-47a0-9023-fe46e6bc1109
+favorites[2][1]
+
 # ╔═╡ 6229a275-b52d-4c81-a05b-f22d15b0cf32
 numbers = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
 
@@ -247,6 +253,18 @@ rand(4,3)
 # ╔═╡ 12e389d6-9ac2-49b5-a678-cf71787541eb
 rand(4,3,2)
 
+# ╔═╡ e791a417-a00a-479e-b433-3773dd74a48e
+bigbreak
+
+# ╔═╡ b18f9af8-130d-4bac-ba8f-230e89d229b7
+X = [1 2; 2 3 ]
+
+# ╔═╡ 26de3d3b-9229-4c34-a7d1-e0c89ef6f843
+Z = [i+j for i in 1:10, j in 1:10]
+
+# ╔═╡ 30933711-723e-4b8f-8be9-3928635e068e
+Z[3:5, 2:2:6]
+
 # ╔═╡ eb9a5d9f-9f39-401c-aa35-102414ed99de
 bigbreak
 
@@ -257,7 +275,7 @@ md"Be careful when you want to copy arrays!"
 fibonacci
 
 # ╔═╡ 68ce440d-53f8-4312-8911-a7348e602a1f
-somenumbers = fibonacci
+somenumbers = copy(fibonacci)
 
 # ╔═╡ 1be992a6-fc03-437f-9dc1-6072f0b08327
 somenumbers[1] = 404
@@ -271,6 +289,16 @@ md"Editing somenumbers caused fibonacci to get updated as well!
 In the above example, we didn't actually make a copy of fibonacci. **We just created a new way to access the entries in the array bound to fibonacci.**
 
 If we'd like to make a copy of the array bound to fibonacci, we can use the copy function."
+
+# ╔═╡ ce690520-a919-4e3d-a201-ec2baedf913d
+let
+	a = [[1,2],1]
+	
+	b = deepcopy(a)
+	b[1][1] = 10
+	b[2] = 2
+	a
+end
 
 # ╔═╡ 28263f4f-37b0-43fd-9eab-6169d82b0581
 bigbreak
@@ -291,8 +319,21 @@ somemorenumbers[1] = 404
 # ╔═╡ 0e20de93-a6f1-415c-a08e-53de67065bc4
 fibonacci
 
+# ╔═╡ be7bad99-185a-43ed-9c8d-33e5abcdbbd0
+
+
 # ╔═╡ 40b0919d-64a5-4a89-95fb-5266c2c07260
 md"In this last example, fibonacci was not updated. Therefore we see that the arrays bound to somemorenumbers and fibonacci are distinct."
+
+# ╔═╡ ec0fa200-0c79-467a-af5c-97e79f37253d
+let
+	function gradientdecent(f, x0)
+	
+	end
+
+	x0 = [1., 2.]
+	gradientdecent( nothing, x0)
+end
 
 # ╔═╡ 55633c9d-2c1b-40c5-9475-48f18b1f8d77
 bigbreak
@@ -303,9 +344,18 @@ md"Variables are just associated to values!"
 # ╔═╡ 9d4aeb68-6649-42f6-8a93-997a136499d4
 begin 
 	A = [1,2,3]
+	
 	A_orig = Ref(A)  # points to the array [1,2,3]
-	A = 2*A
+
+	A .= (2 * A)
+	
 end
+
+# ╔═╡ 2a3d5a98-751c-48c9-b102-89bc40e74251
+typeof(2*A)
+
+# ╔═╡ 457bc2c7-9aae-4b28-b216-ef9454227651
+A
 
 # ╔═╡ f35046c4-4a6e-42e5-b691-78b6ef3b0d27
 md"The original array (might) still exists and we wasted memory!"
@@ -640,6 +690,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─c94ca702-fe13-468f-938a-be9b16a879e2
 # ╠═b577d259-b564-47c8-b732-a0af01f30014
 # ╠═24dea8be-3930-4049-9a44-b8151e164d91
+# ╠═7701def7-26b9-4f53-90a9-3eec7be70a16
 # ╟─d1571780-39a7-4d8d-9ee0-b9770e235bdd
 # ╠═98457248-d957-4376-8086-6b5866a743c9
 # ╠═0553623d-5416-4cf4-8cd8-a836dbe5c41f
@@ -657,12 +708,17 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═55e690c8-14c2-46f8-bd3c-f64e34a8d74e
 # ╟─58fbd165-41f3-4cac-aaa3-e498e4621d1d
 # ╠═a6fc5004-5ef2-409c-9b6a-5e7e7efb25ad
+# ╠═c4d8af83-f7f9-47a0-9023-fe46e6bc1109
 # ╠═6229a275-b52d-4c81-a05b-f22d15b0cf32
 # ╠═53cd90d5-8a70-43a6-b72e-d61185c0b7aa
 # ╟─4fdc2f91-dc97-4c58-9cc1-486d30ad7890
 # ╟─08924e9f-27b8-444a-b9af-9fa34cf1d61b
 # ╠═daa23583-9b16-4a76-bde8-9324f3dc1908
 # ╠═12e389d6-9ac2-49b5-a678-cf71787541eb
+# ╟─e791a417-a00a-479e-b433-3773dd74a48e
+# ╠═b18f9af8-130d-4bac-ba8f-230e89d229b7
+# ╠═26de3d3b-9229-4c34-a7d1-e0c89ef6f843
+# ╠═30933711-723e-4b8f-8be9-3928635e068e
 # ╟─eb9a5d9f-9f39-401c-aa35-102414ed99de
 # ╟─3280db88-0d68-4426-9f89-0fd3914e6ffa
 # ╠═4fa1d5b9-36a0-491e-a034-c887ee7338d8
@@ -670,20 +726,25 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═1be992a6-fc03-437f-9dc1-6072f0b08327
 # ╠═36086001-a2bd-4648-b2b3-3d526f0dcf71
 # ╟─5ece33d6-4622-4385-b84c-639bd7571915
+# ╠═ce690520-a919-4e3d-a201-ec2baedf913d
 # ╟─28263f4f-37b0-43fd-9eab-6169d82b0581
 # ╠═421ab876-efa5-4a7d-9d33-5b9eca5f528e
 # ╠═142b9281-196f-4d3e-ae7d-fbc1011255f6
 # ╠═91e7e129-c7b5-4e1f-9025-bdac4d569b46
 # ╠═0e20de93-a6f1-415c-a08e-53de67065bc4
+# ╠═be7bad99-185a-43ed-9c8d-33e5abcdbbd0
 # ╟─40b0919d-64a5-4a89-95fb-5266c2c07260
+# ╠═ec0fa200-0c79-467a-af5c-97e79f37253d
 # ╟─55633c9d-2c1b-40c5-9475-48f18b1f8d77
 # ╟─69e96bb3-fc25-4f44-89cd-8f2aeb7065fe
 # ╠═9d4aeb68-6649-42f6-8a93-997a136499d4
+# ╠═2a3d5a98-751c-48c9-b102-89bc40e74251
+# ╠═457bc2c7-9aae-4b28-b216-ef9454227651
 # ╟─f35046c4-4a6e-42e5-b691-78b6ef3b0d27
 # ╠═8af669a5-4f1f-4f0e-9de7-030e3196f96b
 # ╟─32035322-60ec-4ed7-a340-84c6457a2464
 # ╟─2c04e557-4afa-4acc-ace1-45f994aa3ed3
-# ╠═83c37801-d248-442a-a360-829f740f5cd9
+# ╟─83c37801-d248-442a-a360-829f740f5cd9
 # ╠═4170966b-cbb4-4b7b-b6e0-528f63a1c019
 # ╟─f720b6ad-eea0-4c07-b528-822b80305000
 # ╟─7831cafd-8ac8-41be-ad0d-a5abeeb66276
