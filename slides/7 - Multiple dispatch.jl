@@ -98,6 +98,8 @@ begin
 
 	# floats between a and b
 	random(a::Float64, b::Float64) = a + (b-a)*rand()
+
+	random() = 1
 end
 
 # ╔═╡ 1ff517d6-2145-4ab5-93e2-faeb0882dcdc
@@ -107,7 +109,7 @@ methods(random)
 random(1.0, 2.0)
 
 # ╔═╡ c0834dbb-0128-4219-a119-6df81bf876e4
-random(1, 6)
+random(1, 3)
 
 # ╔═╡ a92b084e-ede0-408b-8bee-f8508fc2a470
 random(1, 6.32)
@@ -210,9 +212,6 @@ g( 1 + 2im )
 # ╔═╡ 8d6623d2-60cf-43e7-b040-6787e8b7edad
 g(3.0)
 
-# ╔═╡ 97919302-24c5-4d6e-829b-c973f04da574
-supertype(supertype(supertype(Int64)))
-
 # ╔═╡ 352f54bf-3520-4f1c-9124-8d2871466e47
 bigbreak
 
@@ -220,6 +219,15 @@ bigbreak
 md"**Quick exercise:**
 
 Find a case in which Julia cannot determine which method to call!"
+
+# ╔═╡ 684ca6d9-ba49-446c-b394-3d4ca985e1d2
+begin
+	fnc(x::Int64,  y::Int64) = 1
+	fnc(x::Number, y::Number) = 2
+end
+
+# ╔═╡ c76d5344-ebae-4bef-9d7c-09940be5c492
+fnc(1,1.0)
 
 # ╔═╡ b31fdae8-76f1-4998-945b-ca37f6173c0f
 
@@ -231,7 +239,7 @@ Find a case in which Julia cannot determine which method to call!"
 md"**Note:** A case which is important to keep in mind is this one:"
 
 # ╔═╡ 0a9e5987-869d-4b10-987d-4408769894c1
-Vector{Int64} <: Vector{Integer}
+Vector{Int64} <: Vector
 
 # ╔═╡ 9eb5aa13-7df1-4f2d-8f9b-d2b8b7e13a84
 md"However, with so called _parametric types_ we can handle that:"
@@ -278,7 +286,7 @@ md"Let's consider this simple implementation of a (scalar) explicit Euler method
 
 # ╔═╡ 4e965956-3633-4f4c-80ad-ff3f29958b54
 function euler(f, x0::T, dt, n) where T
-	x = zeros(T, n)
+	x = Array{T}(undef, n)
 	x[1] = x0
 	
 	for i in 2:n
@@ -336,6 +344,12 @@ md"#### Units"
 unit_sol = euler( x -> -x/u"hr", 1.0u"μm", 0.1u"s", 100)
 
 # ╔═╡ 384f9598-abca-4727-8f26-037bc5f377bb
+
+
+# ╔═╡ 23c8d96c-314d-40d8-a14e-a317378ad705
+
+
+# ╔═╡ 59ca17c8-98bc-467b-9abc-495c978298d2
 
 
 # ╔═╡ 5683bafe-96a6-404d-9ef3-4b493ac7e5e4
@@ -795,9 +809,10 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═de4767b1-e882-4c55-9d22-0b91cc0d49d9
 # ╠═4d2f8eaa-fd3f-4b65-a804-7c1658a319c8
 # ╠═8d6623d2-60cf-43e7-b040-6787e8b7edad
-# ╠═97919302-24c5-4d6e-829b-c973f04da574
 # ╟─352f54bf-3520-4f1c-9124-8d2871466e47
 # ╟─ce1a54c5-1ff0-4458-82f5-a1984b5be4fc
+# ╠═684ca6d9-ba49-446c-b394-3d4ca985e1d2
+# ╠═c76d5344-ebae-4bef-9d7c-09940be5c492
 # ╟─b31fdae8-76f1-4998-945b-ca37f6173c0f
 # ╟─82a2733a-da60-485f-8482-6189101933aa
 # ╟─32a1a877-2146-4e8e-90c1-3b021b6d9348
@@ -828,6 +843,8 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═a37e3c58-bd22-4bc6-b003-bb8d350d49ed
 # ╠═f5113d03-754f-4ace-91f3-27bf015cce9c
 # ╟─384f9598-abca-4727-8f26-037bc5f377bb
+# ╠═23c8d96c-314d-40d8-a14e-a317378ad705
+# ╠═59ca17c8-98bc-467b-9abc-495c978298d2
 # ╟─5683bafe-96a6-404d-9ef3-4b493ac7e5e4
 # ╟─7b92479f-2638-4bcc-822f-ce638a073d3c
 # ╟─0a97a970-199e-4853-895e-fefc6d7753e6

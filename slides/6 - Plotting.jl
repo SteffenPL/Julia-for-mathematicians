@@ -136,6 +136,9 @@ bigbreak
 # ╔═╡ 0b1e879c-b71f-4b4e-a08a-29237fcdb773
 md"### Simple plots (3D)"
 
+# ╔═╡ 21ff28c3-201e-431d-9936-df8303b977c9
+x
+
 # ╔═╡ 99a9e353-06f4-45a8-82cf-1ece1cac196b
 begin
 	y = LinRange(-5, 5, 100)
@@ -147,6 +150,15 @@ end
 
 # ╔═╡ fbd7c866-fd0a-4609-9742-7190a9b22362
 surface(x, y, g.(x, y', a))
+
+# ╔═╡ d2055fb2-5e14-40c1-977c-2a157ffc3e19
+a
+
+# ╔═╡ aed7104b-a480-4f53-a0da-66d351caa3e4
+X = [1.2, 3.0]
+
+# ╔═╡ 4af0c159-5381-4808-87f4-eb572ffc571d
+X'
 
 # ╔═╡ 8a19f692-3dfe-453d-b8d2-9ff0f56851fa
 bigbreak
@@ -188,13 +200,14 @@ let
 	ax = Axis(fig[1,1])
 	
 	lines!(ax, x, f.(x),    label = L"\sin(x)")
-	lines!(ax, x, f.(x,1),  label = L"\sin(x + \sin(ω x))")
+	lines!(ax, x, f.(x,1),  label = L"\sin(x + \sin(\omega x))")
 
 	ax.title = "Phase modulation"
 	ax.xlabel = "x"
 	ax.ylabel = "f(x)"
 
-	Legend(fig[1,2], ax)
+	#Legend(fig[1,2], ax)
+	axislegend(ax, position = :lb)
 	
 	current_figure()
 end
@@ -231,8 +244,11 @@ display(fig)  #not needed in Pluto, just put `fig` into the last line
 # ╔═╡ 7691f3e3-e746-4048-8907-a4f3cd3bfd6a
 let
 	fig = Figure()
+	
 	ax = Axis(fig[1,1],   title = "Axis 1")
+	
 	ax = Axis(fig[1,2],   title = "Axis 2")
+	
 	ax = Axis(fig[2,1:2], title = "Axis 3")
 	
 	Label(fig[0,1:2], "Layouts", textsize = 32)
@@ -251,7 +267,7 @@ let
 	fig = Figure()
 
 	# left plot
-	ax = Axis(fig[1,1], title = L"\sin(x)")  # or use ax = current_axis() later
+	ax = Axis(fig[1,1], title = L"\sin(x)")
 	lines!(ax, x, f.(x))
 
 	# right plot
@@ -262,7 +278,7 @@ let
 	# bottom plot
 	ax = Axis(fig[2,1:2], title = "Variations")
 	for ω in LinRange(0,2,8)
-		lines!(x, f.(x, ω), 
+		lines!(ax, x, f.(x, ω), 
 				color = RGBf(ω/2, ω/4, 1-ω/2), 
 				label = "$(round(ω,digits=2))")
 	end
@@ -1539,9 +1555,13 @@ version = "3.5.0+0"
 # ╠═b0d2e170-37c5-4e1d-89d9-b99d7194f182
 # ╟─a8d50a83-119a-46ab-ac44-c77261d0d621
 # ╟─0b1e879c-b71f-4b4e-a08a-29237fcdb773
+# ╠═21ff28c3-201e-431d-9936-df8303b977c9
 # ╠═99a9e353-06f4-45a8-82cf-1ece1cac196b
 # ╠═fbd7c866-fd0a-4609-9742-7190a9b22362
+# ╠═d2055fb2-5e14-40c1-977c-2a157ffc3e19
 # ╠═984deaf9-fedc-46ce-b141-60afa54c5535
+# ╠═aed7104b-a480-4f53-a0da-66d351caa3e4
+# ╠═4af0c159-5381-4808-87f4-eb572ffc571d
 # ╟─8a19f692-3dfe-453d-b8d2-9ff0f56851fa
 # ╟─fe1d4c5a-c45c-4212-bce4-0a81e7211545
 # ╟─2ec316f3-f0dc-43b4-9d96-dbe3360deedf

@@ -68,6 +68,7 @@ md"Let's implement a matrix like type, which only stores diagonal elements."
 begin
 	struct FastDiag{T}
 	    data::Vector{T}
+		z
 	end
 	
 	import Base: *, +
@@ -82,6 +83,17 @@ begin
 	nothing # just to surpress Pluto output
 end
 
+
+# ╔═╡ 8fabcd94-1c71-420c-b2b9-d10a6eca76dc
+begin
+	Base.@kwdef struct Foo
+		x
+		y::Float64 = 1.0
+	end
+end
+
+# ╔═╡ bbe30b74-8e29-4b3f-bf04-e05e67c82dbf
+FastDiag([1], 1)
 
 # ╔═╡ dbd7131b-05a9-4d70-8864-d5ca9b2fe9c5
 md"It is always good, if your type is `concrete`. That means Julia can predict each variables type in advance."
@@ -102,11 +114,14 @@ begin
     x = rand(N)	
 end
 
+# ╔═╡ 4bdf13bd-a27c-4fda-9807-eb12b1132ea0
+
+
 # ╔═╡ 0fbd5d9a-30dc-4e73-9bff-c088768de5ab
 md"Let's first make sure that our methods work correctly:"
 
 # ╔═╡ 4a9409d1-d04d-459c-93a2-fd47315a1c27
-A * x == A_fast * x
+(A+A) * x == (A_fast+A_fast) * x
 
 # ╔═╡ 1dc516fd-b6de-466c-8cc2-ec56301cebba
 md"Now, let's measure performance:"
@@ -150,6 +165,17 @@ begin
 	D.data[2] = 100
 	
 	(;data, D)
+end
+
+# ╔═╡ f8afb728-5080-41f0-a0c4-9937416493b8
+begin
+	struct InM
+		x
+	end
+
+	mutable struct Mut
+		y::InM
+	end
 end
 
 # ╔═╡ c13de59d-508e-4472-a602-17d334337ca4
@@ -204,9 +230,6 @@ end
 # ╔═╡ 7fc21ab5-52d9-4b12-a0c9-780cf2c62c75
 
 
-# ╔═╡ 8ad53b1a-55c3-4a85-9f06-0ecd01305120
-square(s) = s.x^2
-
 # ╔═╡ 2c21a7fe-3223-46d4-af30-296045c905ec
 a = Unpredictable(rand([1.0, 2, "3"]))
 
@@ -222,6 +245,9 @@ end
 
 # ╔═╡ 9c4c826b-f1a8-43f9-a50c-455826223402
 bigbreak
+
+# ╔═╡ 8ad53b1a-55c3-4a85-9f06-0ecd01305120
+square(s) = s.x^2
 
 # ╔═╡ 4f962f52-99e4-4d2c-a16c-7b187b03d9d6
 md"#### Problem: Type instabilities:"
@@ -309,6 +335,9 @@ Now, how could someone implement an algorithm? Just define the needed functions!
 
 # ╔═╡ 685f46ae-e3dd-4514-bba2-393602831d3a
 
+
+# ╔═╡ b03b9de7-022a-4ba3-924a-92fdbf599453
+f(x::AbstractAlgorithm) = x.n_steps
 
 # ╔═╡ 7f40cabc-8ce8-4ecc-b22e-1dc62bd8b648
 struct RandomSolver <: AbstractAlgorithm 
@@ -693,11 +722,14 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─1515c0ab-f7ed-4273-9b64-c810abbaf941
 # ╟─5790a006-640d-4751-a690-b139654049c6
 # ╠═62ee2d5b-d757-47db-9019-37622330e9bc
+# ╠═8fabcd94-1c71-420c-b2b9-d10a6eca76dc
+# ╠═bbe30b74-8e29-4b3f-bf04-e05e67c82dbf
 # ╟─dbd7131b-05a9-4d70-8864-d5ca9b2fe9c5
 # ╠═3c7c5961-014d-47c6-8ffa-cd06198682ce
 # ╟─b9a4a4ac-c07f-4f73-aa48-dbfa123a267a
 # ╠═6643612d-d1a6-4fdc-8398-e12682891eb0
 # ╠═cb9e96e1-597a-4b0e-912a-1972c84edd5f
+# ╠═4bdf13bd-a27c-4fda-9807-eb12b1132ea0
 # ╟─0fbd5d9a-30dc-4e73-9bff-c088768de5ab
 # ╠═4a9409d1-d04d-459c-93a2-fd47315a1c27
 # ╟─1dc516fd-b6de-466c-8cc2-ec56301cebba
@@ -708,6 +740,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─55485242-77c4-43ec-996d-c1177ab34ecf
 # ╟─ee6fa527-4d43-4b51-baa3-2cb2fa57d81b
 # ╠═f491e000-1f10-443d-bf18-18a413f8cf94
+# ╠═f8afb728-5080-41f0-a0c4-9937416493b8
 # ╟─c13de59d-508e-4472-a602-17d334337ca4
 # ╟─2dc06114-7f29-4021-943d-e2b14f787e3d
 # ╟─95fbd51f-62a0-4167-9478-452420d19369
@@ -722,17 +755,17 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═5fa76a28-b1d4-4c94-a7b8-5057115caa7a
 # ╠═aa7189d4-53a5-4c54-bfdb-c8b242be2613
 # ╟─7fc21ab5-52d9-4b12-a0c9-780cf2c62c75
-# ╠═8ad53b1a-55c3-4a85-9f06-0ecd01305120
 # ╠═2c21a7fe-3223-46d4-af30-296045c905ec
 # ╠═d7a61c32-0ed9-4d04-91e1-d6849057df2d
 # ╠═fc842dae-373f-4ec5-815e-e25193fce8fe
 # ╟─9c4c826b-f1a8-43f9-a50c-455826223402
+# ╠═8ad53b1a-55c3-4a85-9f06-0ecd01305120
 # ╟─4f962f52-99e4-4d2c-a16c-7b187b03d9d6
 # ╟─e02cf43c-3389-4020-b2cc-57f201cee0aa
 # ╠═0bfee97a-6b2c-42d7-b095-b356f5858bc0
 # ╠═4120837d-749b-4813-b53f-0ab22bceacee
 # ╟─08facfc2-4b2b-4055-891b-b8ea6b0b61d0
-# ╠═27352174-d77c-4d61-bcf4-b897e451c5f6
+# ╟─27352174-d77c-4d61-bcf4-b897e451c5f6
 # ╠═e355c3b9-470d-447a-8208-cf99dfbceadc
 # ╠═99f36b6d-ade6-4f37-8dfb-76c967c445d9
 # ╟─cebfa1b4-6876-41ac-b219-032f061f44ac
@@ -743,6 +776,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─9b214cfc-a24e-4e4d-86e3-71451f647268
 # ╟─4f55481e-7884-4dd8-92ab-14a9fedd2840
 # ╟─685f46ae-e3dd-4514-bba2-393602831d3a
+# ╠═b03b9de7-022a-4ba3-924a-92fdbf599453
 # ╠═7f40cabc-8ce8-4ecc-b22e-1dc62bd8b648
 # ╠═7e32559f-7148-472a-bff0-2777bd0df755
 # ╠═f6c9269f-56a1-4e23-a7c7-93783c149e84
@@ -754,7 +788,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─5d2e637e-3f40-49d2-9f4b-59b7c1ee6afe
 # ╠═ef533b3f-b705-461f-a590-b0a11fa05f52
 # ╟─38599bbf-6e45-49d8-a117-2d1822688bed
-# ╠═16dc8591-a6b3-4256-bbd9-093548352449
+# ╟─16dc8591-a6b3-4256-bbd9-093548352449
 # ╠═ac3f9a7f-ecdf-486a-a3df-a7bdd3d91012
 # ╠═c577d146-2b43-4820-956e-c708861e8881
 # ╟─d638bc5e-44b5-401b-a4ce-e47552c28960

@@ -256,6 +256,11 @@ map(x -> x^3, [1, 2, 3])
 # ╔═╡ ebb4b925-9c00-471e-b248-d7f5c7794ca0
 md"and now we've cubed all the elements of `[1, 2, 3]`!"
 
+# ╔═╡ 76d3ebff-1e69-4f7a-bb55-a10f5f83c806
+with_terminal() do 
+	println("test")
+end
+
 # ╔═╡ 783648ba-d6b5-4cdf-91ac-13323255428a
 bigbreak
 
@@ -762,6 +767,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─b53c7e60-559c-4d92-99bb-f970f44e48cb
 # ╠═d0c94953-b7a5-4749-aa4b-b5286233767c
 # ╟─ebb4b925-9c00-471e-b248-d7f5c7794ca0
+# ╠═76d3ebff-1e69-4f7a-bb55-a10f5f83c806
 # ╟─783648ba-d6b5-4cdf-91ac-13323255428a
 # ╟─e452fd6d-fb31-43b6-b399-0863784115fc
 # ╠═928bf981-ba2d-4eb7-9b31-8dd88be33976
